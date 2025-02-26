@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.stockmaster.Controles.Materiais.CriarMaterialController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="ALWAYS" percentWidth="9.0" />
+        <ColumnConstraints hgrow="ALWAYS" percentWidth="19.0" />
+        <ColumnConstraints hgrow="ALWAYS" percentWidth="58.0" />
+        <ColumnConstraints hgrow="ALWAYS" percentWidth="14.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
+        <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
+        <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
+        <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
+        <RowConstraints percentHeight="15.0" vgrow="ALWAYS" />
+        <RowConstraints percentHeight="35.0" vgrow="ALWAYS" />
+        <RowConstraints maxHeight="51.0" minHeight="42.0" percentHeight="10.0" prefHeight="51.0" vgrow="ALWAYS" />
+        <RowConstraints maxHeight="31.0" minHeight="10.0" percentHeight="10.0" prefHeight="22.0" vgrow="ALWAYS" />
+    </rowConstraints>
+    <children>
+        <Pane style="-fx-background-color: lightblue;" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0">
+            <children>
+                <ImageView fitHeight="39.0" fitWidth="204.0" pickOnBounds="true" preserveRatio="true" />
+            </children>
+        </Pane>
+        <Button fx:id="listaButton" onAction="#handleListaButtonAction" text="Lista" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+        <Label text="Código Material" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+        <TextField fx:id="codigoMaterialField" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+        <Label text="Descrição Curta" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+        <TextField fx:id="descricaoCurtaField" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+        <Label text="Unidade de Medida" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+        <TextField fx:id="unidadeMedidaField" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+        <Label text="Descrição Longa" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+        <TextArea fx:id="descricaoLongaField" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+        <Button fx:id="voltarButton" onAction="#handleVoltarButtonAction" text="Voltar" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+        <Button fx:id="salvarButton" onAction="#handleSalvarButtonAction" text="Salvar" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+        <Label text="Cadastro de Material" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
+        <Label alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="72.0" scaleX="2.0" scaleY="2.0" scaleZ="2.0" text="StockMater" textAlignment="CENTER" translateX="2.0" translateY="2.0" translateZ="2.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" />
+        <Label fx:id="statusLabel" text="Status" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" /> <!-- Certifique-se de que o fx:id está correto -->
+    </children>
+</GridPane>

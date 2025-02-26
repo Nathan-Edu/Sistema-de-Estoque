@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="648.0" prefWidth="612.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.stockmaster.Controles.Principal.PagInicialController">
+    <children>
+        <HBox layoutX="0.0" layoutY="0.0" prefHeight="54.0" prefWidth="622.0" style="-fx-background-color: #2C3E50;">
+            <children>
+                <ImageView fitHeight="50.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+                <Label alignment="CENTER" prefHeight="47.0" prefWidth="304.0" style="-fx-text-fill: white; -fx-font-size: 20px;" text="StockMaster" textAlignment="CENTER" />
+                <SplitMenuButton alignment="CENTER_RIGHT" contentDisplay="CENTER" maxHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="Configurações" textAlignment="CENTER" textOverrun="CLIP" HBox.hgrow="SOMETIMES">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handleUserMenuItemAction" text="Usuário" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleLogoutMenuItemAction" text="Sair" />
+                    </items>
+                    <effect>
+                        <Blend />
+                    </effect>
+                </SplitMenuButton>
+            </children>
+        </HBox>
+
+        <TabPane layoutY="54.0" prefHeight="594.0" prefWidth="622.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="Página Inicial">
+                    <content>
+                        <AnchorPane prefHeight="566.0" prefWidth="612.0">
+                            <TilePane hgap="15.0" layoutX="20.0" layoutY="20.0" prefColumns="3" prefHeight="134.0" prefWidth="533.0" vgap="15.0">
+                                <children>
+                                    <Button fx:id="criarMaterialButton" onAction="#handleCriarMaterialButtonAction" prefHeight="120.0" prefWidth="120.0" text="Criar Material" wrapText="true" />
+                                    <Button fx:id="modificarMaterialButton" onAction="#handleModificarMaterialButtonAction" prefHeight="120.0" prefWidth="120.0" text="Modificar Material" wrapText="true" />
+                                    <Button fx:id="exibirMaterialButton" onAction="#handleExibirMaterialButtonAction" prefHeight="120.0" prefWidth="120.0" text="Exibir Material" wrapText="true" />
+                                    <Button fx:id="listaMaterialButton" onAction="#handleListaMaterialButtonAction" prefHeight="120.0" prefWidth="120.0" text="Lista dos Materiais" wrapText="true" />
+                                </children>
+                            </TilePane>
+                            <TilePane hgap="15.0" layoutX="20.0" layoutY="154.0" prefColumns="3" prefHeight="134.0" prefWidth="540.0" vgap="15.0">
+                                <children>
+                                    <Button fx:id="criarEstoqueButton" onAction="#handleCriarEstoqueButtonAction" prefHeight="120.0" prefWidth="120.0" text="Criar Estoque" wrapText="true" />
+                                    <Button fx:id="modificarEstoqueButton" onAction="#handleModificarEstoqueButtonAction" prefHeight="120.0" prefWidth="120.0" text="Modificar Estoque" wrapText="true" />
+                                    <Button fx:id="exibirEstoqueButton" onAction="#handleExibirEstoqueButtonAction" prefHeight="120.0" prefWidth="120.0" text="Exibir Estoque" wrapText="true" />
+                                    <Button fx:id="listaEstoqueButton" onAction="#handleListaEstoqueButtonAction" prefHeight="120.0" prefWidth="120.0" text="Lista do Estoque" wrapText="true" />
+                                </children>
+                            </TilePane>
+                            <TilePane hgap="15.0" layoutX="20.0" layoutY="288.0" prefColumns="3" prefHeight="134.0" prefWidth="547.0" vgap="15.0">
+                                <children>
+                                    <Button fx:id="criarLoteButton" onAction="#handleCriarLoteButtonAction" prefHeight="120.0" prefWidth="120.0" text="Criar Lote" wrapText="true" />
+                                    <Button fx:id="modificarLoteButton" onAction="#handleModificarLoteButtonAction" prefHeight="120.0" prefWidth="120.0" text="Modificar Lote" textAlignment="CENTER" wrapText="true" />
+                                    <Button fx:id="exibirLoteButton" onAction="#handleExibirLoteButtonAction" prefHeight="120.0" prefWidth="120.0" text="Exibir Lote" wrapText="true" />
+                                    <Button fx:id="listaLoteButton" onAction="#handleListaLoteButtonAction" prefHeight="120.0" prefWidth="120.0" text="Lista dos Lotes" textAlignment="CENTER" wrapText="true" />
+                                </children>
+                            </TilePane>
+                            <TilePane hgap="15.0" layoutX="20.0" layoutY="422.0" prefColumns="3" prefHeight="134.0" prefWidth="547.0" vgap="15.0">
+                                <children>
+                                    <Button fx:id="criarRequisicoesButton" onAction="#handleCriarRequisicoesButtonAction" prefHeight="120.0" prefWidth="120.0" text="Criar Requisições" wrapText="true" />
+                                    <Button fx:id="modificarRequisicoesButton" onAction="#handleModificarRequisicoesButtonAction" prefHeight="120.0" prefWidth="120.0" text="Modificar Requisições" textAlignment="CENTER" wrapText="true" />
+                                    <Button fx:id="exibirRequisicoesButton" onAction="#handleExibirRequisicoesButtonAction" prefHeight="120.0" prefWidth="120.0" text="Exibir Requisições" wrapText="true" />
+                                    <Button fx:id="listaRequisicoesButton" onAction="#handleListaRequisicoesButtonAction" prefHeight="120.0" prefWidth="120.0" text="Lista de Requisições" textAlignment="CENTER" wrapText="true" />
+                                </children>
+                            </TilePane>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+
+                <!-- Aba Materiais -->
+                <Tab text="Materiais">
+                    <content>
+                        <AnchorPane>
+                            <TilePane hgap="20.0" layoutX="20.0" layoutY="20.0" prefColumns="2" prefHeight="300.0" prefWidth="542.0" vgap="20.0">
+                                <children>
+                                    <Button fx:id="criarMaterialButton2" onAction="#handleCriarMaterialButtonAction" prefHeight="120.0" prefWidth="120.0" text="Criar Material" wrapText="true" />
+                                    <Button fx:id="modificarMaterialButton2" onAction="#handleModificarMaterialButtonAction" prefHeight="120.0" prefWidth="120.0" text="Modificar Material" wrapText="true" />
+                                    <Button fx:id="exibirMaterialButton2" onAction="#handleExibirMaterialButtonAction" prefHeight="120.0" prefWidth="120.0" text="Exibir Material" wrapText="true" />
+                                    <Button fx:id="listaMaterialButton2" onAction="#handleListaMaterialButtonAction" prefHeight="120.0" prefWidth="120.0" text="Lista dos Material" wrapText="true" />
+                                </children>
+                            </TilePane>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Estoque">
+                    <content>
+                        <AnchorPane>
+                            <TilePane hgap="20.0" layoutX="20.0" layoutY="20.0" prefColumns="2" prefHeight="300.0" prefWidth="542.0" vgap="20.0">
+                                <children>
+                                    <Button fx:id="criarEstoqueButton2" onAction="#handleCriarEstoqueButtonAction" prefHeight="120.0" prefWidth="120.0" text="Criar Estoque" wrapText="true" />
+                                    <Button fx:id="modificarEstoqueButton2" onAction="#handleModificarEstoqueButtonAction" prefHeight="120.0" prefWidth="120.0" text="Modificar Estoque" wrapText="true" />
+                                    <Button fx:id="exibirEstoqueButton2" onAction="#handleExibirEstoqueButtonAction" prefHeight="120.0" prefWidth="120.0" text="Exibir Estoque" wrapText="true" />
+                                    <Button fx:id="listaEstoqueButton2" onAction="#handleListaEstoqueButtonAction" prefHeight="120.0" prefWidth="120.0" text="Lista do Estoque" wrapText="true" />
+                                </children>
+                            </TilePane>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Lotes">
+                    <content>
+                        <AnchorPane>
+                            <TilePane hgap="20.0" layoutX="20.0" layoutY="20.0" prefColumns="3" prefHeight="300.0" prefWidth="560.0" vgap="20.0">
+                                <children>
+                                    <Button fx:id="criarLoteButton2" onAction="#handleCriarLoteButtonAction" prefHeight="120.0" prefWidth="120.0" text="Criar Lote" wrapText="true" />
+                                    <Button fx:id="modificarLoteButton2" onAction="#handleModificarLoteButtonAction" prefHeight="120.0" prefWidth="120.0" text="Modificar Lote" textAlignment="CENTER" wrapText="true" />
+                                    <Button fx:id="exibirLoteButton2" onAction="#handleExibirLoteButtonAction" prefHeight="120.0" prefWidth="120.0" text="Exibir Lote" textAlignment="CENTER" wrapText="true" />
+                                    <Button fx:id="listaLoteButton2" onAction="#handleListaLoteButtonAction" prefHeight="120.0" prefWidth="120.0" text="Lista dos Lotes" textAlignment="CENTER" wrapText="true" />
+                                </children>
+                            </TilePane>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Requisições">
+                    <content>
+                        <AnchorPane>
+                            <TilePane hgap="20.0" layoutX="20.0" layoutY="20.0" prefColumns="3" prefHeight="300.0" prefWidth="560.0" vgap="20.0">
+                                <children>
+                                    <Button fx:id="criarRequisicaoButton2" onAction="#handleCriarRequisicoesButtonAction" prefHeight="120.0" prefWidth="120.0" text="Criar Requisição" wrapText="true" />
+                                    <Button fx:id="modificarRequisicaoButton2" onAction="#handleModificarRequisicoesButtonAction" prefHeight="120.0" prefWidth="120.0" text="Modificar Requisição" textAlignment="CENTER" wrapText="true" />
+                                    <Button fx:id="exibirRequisicaoButton2" onAction="#handleExibirRequisicoesButtonAction" prefHeight="120.0" prefWidth="120.0" text="Exibir as Requisições" textAlignment="CENTER" wrapText="true" />
+                                    <Button fx:id="listaRequisicaoButton2" onAction="#handleListaRequisicoesButtonAction" prefHeight="120.0" prefWidth="120.0" text="Lista das Requisições" textAlignment="CENTER" wrapText="true" />
+                                </children>
+                            </TilePane>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Logs">
+                    <content>
+                        <AnchorPane>
+                            <TilePane hgap="20.0" layoutX="20.0" layoutY="20.0" prefColumns="3" prefHeight="300.0" prefWidth="560.0" vgap="20.0">
+                                <children>
+                                    <Button fx:id="logMaterialButton" onAction="#handleCriarRequisicoesButtonAction" prefHeight="120.0" prefWidth="120.0" text="Log Materiais" wrapText="true" />
+                                    <Button fx:id="logEstoqueButton" onAction="#handleModificarRequisicoesButtonAction" prefHeight="120.0" prefWidth="120.0" text="Log Estoques" textAlignment="CENTER" wrapText="true" />
+                                    <Button fx:id="logLoteButton" onAction="#handleExibirRequisicoesButtonAction" prefHeight="120.0" prefWidth="120.0" text="Log Lotes" textAlignment="CENTER" wrapText="true" />
+                                    <Button fx:id="logRequisicoesButton" onAction="#handleListaRequisicoesButtonAction" prefHeight="120.0" prefWidth="120.0" text="Log Requisições" textAlignment="CENTER" wrapText="true" />
+                                </children>
+                            </TilePane>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</AnchorPane>

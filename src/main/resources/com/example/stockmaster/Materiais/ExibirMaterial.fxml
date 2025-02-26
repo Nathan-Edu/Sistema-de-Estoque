@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.stockmaster.Controles.Materiais.ExibirMaterialController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="ALWAYS" percentWidth="13.0" />
+        <ColumnConstraints hgrow="ALWAYS" percentWidth="23.0" />
+        <ColumnConstraints hgrow="ALWAYS" percentWidth="62.0" />
+        <ColumnConstraints hgrow="ALWAYS" percentWidth="14.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="8.0" prefWidth="100.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
+        <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
+        <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
+        <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
+        <RowConstraints percentHeight="15.0" vgrow="ALWAYS" />
+        <RowConstraints maxHeight="164.0" minHeight="132.0" percentHeight="35.0" prefHeight="163.0" vgrow="ALWAYS" />
+        <RowConstraints maxHeight="60.0" minHeight="0.0" percentHeight="10.0" prefHeight="1.0" vgrow="ALWAYS" />
+      <RowConstraints maxHeight="31.0" minHeight="10.0" percentHeight="10.0" prefHeight="13.0" vgrow="ALWAYS" />
+    </rowConstraints>
+    <children>
+        <Pane style="-fx-background-color: lightblue;" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0">
+            <children>
+                <ImageView fitHeight="39.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true" />
+            </children>
+        </Pane>
+        <Button fx:id="criarButton" mnemonicParsing="false" onAction="#handleCriarButtonAction" text="Criar" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+        <Button fx:id="modificarButton" mnemonicParsing="false" onAction="#handleModificarButtonAction" text="Modificar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+        <Label text="Código Material" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+        <TextField fx:id="codigoMaterialField" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+        <Label text="Descrição Curta" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+        <TextField fx:id="descricaoCurtaField" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+        <Label text="Unidade de Medida" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+        <TextField fx:id="unidadeMedidaField" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+        <Label text="Descrição Longa" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+        <TextArea fx:id="descricaoLongaField" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+        <Label fx:id="statusLabel" text="" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+        <Button fx:id="deletarButton" onAction="#handleDeletarButtonAction" text="Deletar" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+        <Label text="Exibir Material" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
+        <Label alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="18.0" prefWidth="84.0" scaleX="2.0" scaleY="2.0" scaleZ="2.0" text="StockMater" textAlignment="CENTER" translateX="2.0" translateY="2.0" translateZ="2.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" />
+        <Button fx:id="exibirButton" onAction="#handleExibirButtonAction" text="Exibir" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+        <Button fx:id="voltarButton" mnemonicParsing="false" onAction="#handleVoltarButtonAction" text="Voltar" GridPane.rowIndex="6" />
+      <Label text="Status" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+    </children>
+</GridPane>

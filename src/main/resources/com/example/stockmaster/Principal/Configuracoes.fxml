@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.stockmaster.Controles.Principal.ConfiguracoesController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.0" minWidth="10.0" prefWidth="78.00000381469727" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.0" minWidth="10.0" prefWidth="99.20000000000002" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="316.6" minWidth="10.0" prefWidth="259.80000000000007" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="368.799984741211" minWidth="10.0" prefWidth="75.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.39999999999998" minWidth="10.0" prefWidth="88.00003051757812" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <Label alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="18.0" prefWidth="69.0" scaleX="2.0" scaleY="2.0" scaleZ="2.0" text="StockMaster" textAlignment="CENTER" translateX="2.0" translateY="2.0" translateZ="2.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" />
+        <TextField fx:id="nomeUsuarioField" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+        <TextField fx:id="emailUsuarioField" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+        <TextField fx:id="senhaUsuarioField" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+        <TextField fx:id="confirmarSenhaField" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+        <Label fx:id="statusLabel" text="Status" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+        <Label text="Nome de Usuário" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+        <Label text="E-mail" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+        <Label text="Senha" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+        <Label prefHeight="18.0" prefWidth="91.0" text="Confirmar Senha" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
+        <Button fx:id="voltarButton" mnemonicParsing="false" onAction="#handleVoltarButtonAction" text="Voltar" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+        <Button fx:id="salvarButton" mnemonicParsing="false" onAction="#handleSalvarButtonAction" text="Salvar" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+        <Label text="Configurações de Usuário" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+    </children>
+</GridPane>

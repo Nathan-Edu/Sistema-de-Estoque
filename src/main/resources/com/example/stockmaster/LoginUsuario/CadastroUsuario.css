@@ -1,0 +1,43 @@
+.label {
+    -fx-text-fill: #333333;
+    -fx-font-size: 14px;
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+.password-field {
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+.button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-padding: 10px;
+    -fx-border-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #2980b9;
+}
+
+.button:pressed {
+    -fx-background-color: #1c598a;
+}
+
+/* Para bordas arredondadas na janela */
+.stage {
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+}

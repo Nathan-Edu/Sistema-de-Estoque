@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane fx:id="modificarLote" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.stockmaster.Controles.Lotes.ModificarLoteController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="ALWAYS" percentWidth="18.0" />
+        <ColumnConstraints hgrow="ALWAYS" percentWidth="18.0" />
+        <ColumnConstraints hgrow="ALWAYS" percentWidth="59.0" />
+        <ColumnConstraints hgrow="ALWAYS" percentWidth="14.0" />
+      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="9.0" prefWidth="100.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="56.0" minHeight="45.0" percentHeight="10.0" prefHeight="51.0" vgrow="ALWAYS" />
+        <RowConstraints maxHeight="48.0" minHeight="24.0" percentHeight="10.0" prefHeight="29.0" vgrow="ALWAYS" />
+        <RowConstraints maxHeight="48.0" minHeight="35.0" percentHeight="10.0" prefHeight="48.0" vgrow="ALWAYS" />
+        <RowConstraints maxHeight="48.0" minHeight="35.0" percentHeight="10.0" prefHeight="48.0" vgrow="ALWAYS" />
+        <RowConstraints maxHeight="48.0" minHeight="35.0" percentHeight="10.0" prefHeight="48.0" vgrow="ALWAYS" />
+        <RowConstraints maxHeight="48.0" minHeight="35.0" percentHeight="10.0" prefHeight="48.0" vgrow="ALWAYS" />
+        <RowConstraints maxHeight="80.0" minHeight="35.0" percentHeight="10.0" prefHeight="80.0" vgrow="ALWAYS" />
+      <RowConstraints />
+    </rowConstraints>
+    <children>
+        <Pane style="-fx-background-color: lightblue;" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0">
+            <children>
+                <ImageView fitHeight="39.0" fitWidth="204.0" pickOnBounds="true" preserveRatio="true" />
+            </children>
+        </Pane>
+        <Label text="Código Lote" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+        <TextField fx:id="codigoLoteField" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+        <Label text="Código Material" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+        <TextField fx:id="codigoMaterialField" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+        <Label text="Quantidade" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+        <TextField fx:id="quantidadeField" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+        <Label prefHeight="26.0" prefWidth="77.0" text="Tipo de Ação" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+        <TextField fx:id="tipoAcao" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+        <Label layoutX="25.0" layoutY="212.0" prefHeight="26.0" prefWidth="28.0" text="Data" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+        <TextField fx:id="dataLote" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+        <Button fx:id="exibirButton" onAction="#handleExibirButtonAction" text="Exibir" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+        <Button fx:id="salvarButton" onAction="#handleSalvarButtonAction" text="Salvar" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
+        <Button fx:id="voltarButton" onAction="#handleVoltarButtonAction" text="Voltar" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+        <Button fx:id="criarButton" onAction="#handleCriarButtonAction" text="Criar" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+        <Label text="Modificar Lote" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
+        <Label fx:id="statusLabel" text="Status" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
+        <Label alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="72.0" scaleX="2.0" scaleY="2.0" scaleZ="2.0" text="StockMater" textAlignment="CENTER" translateX="2.0" translateY="2.0" translateZ="2.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" />
+    </children>
+</GridPane>
