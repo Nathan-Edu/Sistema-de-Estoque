@@ -1,7 +1,9 @@
 package com.example.stockmaster.Controles.Requisicoes;
 
 import Aplicacoes.Modelos.Requisicao;
+import Aplicacoes.Modelos.Material;
 import Aplicacoes.Servicos.RequisicaoServ;
+import Aplicacoes.Servicos.MaterialServ;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,9 +48,13 @@ public class ExibirRequisicaoController {
     private Button exibirButton;
 
     @FXML
+    private Button criarButton;
+
+    @FXML
     private Label statusLabel;
 
     private RequisicaoServ requisicaoServ = new RequisicaoServ();
+    private MaterialServ materialServ = new MaterialServ();
 
     @FXML
     private void handleDeletarButtonAction(ActionEvent event) {
@@ -105,7 +111,12 @@ public class ExibirRequisicaoController {
             Requisicao requisicao = requisicaoServ.buscarRequisicaoPorId(id);
             if (requisicao != null) {
                 solicitanteField.setText(requisicao.getSolicitante());
-                materialField.setText(String.valueOf(requisicao.getIdMaterial()));
+                Material material = materialServ.buscarProdutoPorId(requisicao.getIdMaterial());
+                if (material != null) {
+                    materialField.setText(material.getDescricaoCurta());
+                } else {
+                    materialField.setText(String.valueOf(requisicao.getIdMaterial()));
+                }
                 quantidadeField.setText(String.valueOf(requisicao.getQuantidade()));
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 LocalDate localDate = LocalDate.parse(requisicao.getData());
@@ -117,6 +128,25 @@ public class ExibirRequisicaoController {
             }
         } catch (NumberFormatException e) {
             statusLabel.setText("Erro: código da requisição inválido.");
+        }
+    }
+
+    @FXML
+    private void handleCriarButtonAction(ActionEvent event) {
+        carregarTela("/com/example/stockmaster/Requisicoes/CriarRequisicoes.fxml", "Criar Requisição");
+    }
+
+    private void carregarTela(String caminhoFXML, String titulo) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(caminhoFXML));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle(titulo);
+            stage.show();
+        } catch (IOException e) {
+            statusLabel.setText("Erro ao carregar a página de criação.");
+            e.printStackTrace();
         }
     }
 }

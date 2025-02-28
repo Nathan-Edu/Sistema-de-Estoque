@@ -1,7 +1,9 @@
 package com.example.stockmaster.Controles.Requisicoes;
 
 import Aplicacoes.Modelos.Requisicao;
+import Aplicacoes.Modelos.Material;
 import Aplicacoes.Servicos.RequisicaoServ;
+import Aplicacoes.Servicos.MaterialServ;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,6 +50,7 @@ public class CriarRequisicaoController {
     private Label statusLabel;
 
     private RequisicaoServ requisicaoServ = new RequisicaoServ();
+    private MaterialServ materialServ = new MaterialServ();
 
     @FXML
     private void handleCriarRequisicoesButtonAction() {
@@ -68,13 +71,19 @@ public class CriarRequisicaoController {
             LocalDate localDate = LocalDate.parse(data, formatter);
             Date sqlDate = Date.valueOf(localDate);
 
-            int idUsuarioValido = 1; // Substitua por um id_usuario válido na sua tabela usuários
+            int idUsuarioValido = 1;
+
+            Material materialObj = materialServ.buscarProdutoPorNome(material);
+            if (materialObj == null) {
+                statusLabel.setText("Material não encontrado.");
+                return;
+            }
 
             Requisicao requisicao = new Requisicao(
                     Integer.parseInt(numeroRc),
-                    idUsuarioValido, // ID do usuário válido
+                    idUsuarioValido,
                     solicitante,
-                    Integer.parseInt(material),
+                    materialObj.getId_material(),
                     Double.parseDouble(quantidade),
                     sqlDate.toString()
             );

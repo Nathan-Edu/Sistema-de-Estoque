@@ -28,13 +28,19 @@ public class MaterialDAO {
     public void adicionaMaterial(Material material) {
         String sql = "INSERT INTO materiais (descricao_curta, descricao_longa, quantidade, unidade_medida, deposito) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, material.getDescricao_curta());
-            stmt.setString(2, material.getDescricao_Longa());
-            stmt.setBigDecimal(3, material.getQuantidade());  // Usando setBigDecimal para quantidade
-            stmt.setString(4, material.getUnidade_Medida());
+            stmt.setString(2, material.getDescricao_longa());
+            stmt.setBigDecimal(3, material.getQuantidade());
+            stmt.setString(4, material.getUnidade_medida());
             stmt.setString(5, material.getDeposito());
             stmt.executeUpdate();
+
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    material.setId_material(generatedKeys.getInt(1));
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -52,7 +58,7 @@ public class MaterialDAO {
                             rs.getInt("id_material"),
                             rs.getString("descricao_curta"),
                             rs.getString("descricao_longa"),
-                            rs.getBigDecimal("quantidade"), // Ajustado para BigDecimal
+                            rs.getBigDecimal("quantidade"),
                             rs.getString("unidade_medida"),
                             rs.getString("deposito")
                     );
@@ -75,7 +81,7 @@ public class MaterialDAO {
                         rs.getInt("id_material"),
                         rs.getString("descricao_curta"),
                         rs.getString("descricao_longa"),
-                        rs.getBigDecimal("quantidade"), // Ajustado para BigDecimal
+                        rs.getBigDecimal("quantidade"),
                         rs.getString("unidade_medida"),
                         rs.getString("deposito")
                 );
@@ -92,11 +98,11 @@ public class MaterialDAO {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, material.getDescricao_curta());
-            stmt.setString(2, material.getDescricao_Longa());
-            stmt.setBigDecimal(3, material.getQuantidade());  // Usando setBigDecimal para quantidade
-            stmt.setString(4, material.getUnidade_Medida());
+            stmt.setString(2, material.getDescricao_longa());
+            stmt.setBigDecimal(3, material.getQuantidade());
+            stmt.setString(4, material.getUnidade_medida());
             stmt.setString(5, material.getDeposito());
-            stmt.setInt(6, material.getId());
+            stmt.setInt(6, material.getId_material());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -104,7 +110,6 @@ public class MaterialDAO {
     }
 
     public void deletarMaterial(int id) {
-
         String deleteEstoqueSQL = "DELETE FROM estoque WHERE id_material = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement deleteEstoqueStmt = conn.prepareStatement(deleteEstoqueSQL)) {
@@ -120,5 +125,43 @@ public class MaterialDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public int obterProximoId() {
+        String sql = "SELECT MAX(id_material) + 1 FROM materiais";
+        try (Connection conn = DatabaseConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 1;
+    }
+
+    public Material buscarMaterialPorNome(String nome) {
+        String sql = "SELECT * FROM materiais WHERE descricao_curta = ?";
+        Material material = null;
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, nome);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    material = new Material(
+                            rs.getInt("id_material"),
+                            rs.getString("descricao_curta"),
+                            rs.getString("descricao_longa"),
+                            rs.getBigDecimal("quantidade"),
+                            rs.getString("unidade_medida"),
+                            rs.getString("deposito")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return material;
     }
 }

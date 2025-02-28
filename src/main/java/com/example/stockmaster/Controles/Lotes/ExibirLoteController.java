@@ -1,7 +1,9 @@
 package com.example.stockmaster.Controles.Lotes;
 
 import Aplicacoes.Modelos.Lote;
+import Aplicacoes.Modelos.Material;
 import Aplicacoes.Servicos.LoteServ;
+import Aplicacoes.Servicos.MaterialServ;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,6 +50,7 @@ public class ExibirLoteController {
     private Label resultadoLabel;
 
     private LoteServ loteServ = new LoteServ();
+    private MaterialServ materialServ = new MaterialServ();
 
     @FXML
     private void handleExibirButtonAction() {
@@ -56,12 +59,11 @@ public class ExibirLoteController {
             int id = Integer.parseInt(codigoLote);
             Lote lote = loteServ.buscarLotePorId(id);
             if (lote != null) {
-                codigoMaterialField.setText(String.valueOf(lote.getCodMaterial()));
+                Material material = materialServ.buscarProdutoPorId(lote.getCodMaterial());
+                codigoMaterialField.setText(material != null ? material.getDescricao_curta() : String.valueOf(lote.getCodMaterial()));
                 quantidadeField.setText(String.valueOf(lote.getQuantidade()));
                 dataField.setText(new SimpleDateFormat("dd/MM/yyyy").format(lote.getDataEntrada()));
                 tipoAcaoField.setText(lote.getTipoAcao());
-
-                // Desativa a edição dos campos
                 codigoMaterialField.setEditable(false);
                 quantidadeField.setEditable(false);
                 dataField.setEditable(false);
@@ -84,7 +86,6 @@ public class ExibirLoteController {
             loteServ.deletarLote(id);
             resultadoLabel.setText("Lote excluído com sucesso!");
 
-
             codigoMaterialField.clear();
             quantidadeField.clear();
             dataField.clear();
@@ -101,7 +102,7 @@ public class ExibirLoteController {
 
     @FXML
     public void handleModificarButtonAction(ActionEvent actionEvent) {
-        carregarTela("/com/example/stockmaster/Lotes/ModificarLote.fxml", "Criar Lote");
+        carregarTela("/com/example/stockmaster/Lotes/ModificarLote.fxml", "Modificar Lote");
     }
 
     @FXML

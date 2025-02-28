@@ -1,15 +1,15 @@
 package com.example.stockmaster.Controles.Estoque;
 
 import Aplicacoes.Modelos.Estoque;
+import Aplicacoes.Modelos.Material;
 import Aplicacoes.Servicos.EstoqueServ;
+import Aplicacoes.Servicos.MaterialServ;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -51,7 +51,7 @@ public class ExibirEstoqueController {
     private Label resultadoLabel;
 
     private EstoqueServ estoqueServ = new EstoqueServ();
-
+    private MaterialServ materialServ = new MaterialServ();
 
     @FXML
     private void handleExibirButtonAction(ActionEvent event) {
@@ -60,7 +60,12 @@ public class ExibirEstoqueController {
             Estoque estoque = estoqueServ.buscarEstoquePorId(codigoLote);
 
             if (estoque != null) {
-                codigoMaterialField.setText(String.valueOf(estoque.getCodMaterial()));
+                Material material = materialServ.buscarProdutoPorId(estoque.getCodMaterial());
+                if (material != null) {
+                    codigoMaterialField.setText(material.getDescricaoCurta());
+                } else {
+                    codigoMaterialField.setText(String.valueOf(estoque.getCodMaterial()));
+                }
                 quantidadeField.setText(String.valueOf(estoque.getQuantidade()));
                 unidadeMedidaField.setText(estoque.getUnidadeMedida());
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -93,12 +98,12 @@ public class ExibirEstoqueController {
 
     @FXML
     private void handleCriarButtonAction(ActionEvent event) {
-        carregarTela("/com/example/stockmaster/Estoque/CriarEstoque.fxml"," Criar Estoque");
+        carregarTela("/com/example/stockmaster/Estoque/CriarEstoque.fxml", "Criar Estoque");
     }
 
     @FXML
     private void handleModificarButtonAction(ActionEvent event) {
-            carregarTela("/com/example/stockmaster/Estoque/ModificarEstoque.fxml"," Modificar Estoque");
+        carregarTela("/com/example/stockmaster/Estoque/ModificarEstoque.fxml", "Modificar Estoque");
     }
 
     private void carregarTela(String caminhoFXML, String titulo) {
@@ -113,5 +118,4 @@ public class ExibirEstoqueController {
             e.printStackTrace();
         }
     }
-
 }

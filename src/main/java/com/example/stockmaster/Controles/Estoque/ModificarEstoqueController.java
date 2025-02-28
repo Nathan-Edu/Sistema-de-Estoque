@@ -1,7 +1,9 @@
 package com.example.stockmaster.Controles.Estoque;
 
 import Aplicacoes.Modelos.Estoque;
+import Aplicacoes.Modelos.Material;
 import Aplicacoes.Servicos.EstoqueServ;
+import Aplicacoes.Servicos.MaterialServ;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,6 +51,7 @@ public class ModificarEstoqueController {
     private Label statusLabel;
 
     private EstoqueServ estoqueServ = new EstoqueServ();
+    private MaterialServ materialServ = new MaterialServ();
 
     @FXML
     private void handleExibirButtonAction(ActionEvent event) {
@@ -57,7 +60,12 @@ public class ModificarEstoqueController {
             Estoque estoque = estoqueServ.buscarEstoquePorId(codigoLote);
 
             if (estoque != null) {
-                codigoMaterialField.setText(String.valueOf(estoque.getCodMaterial()));
+                Material material = materialServ.buscarProdutoPorId(estoque.getCodMaterial());
+                if (material != null) {
+                    codigoMaterialField.setText(material.getDescricaoCurta());
+                } else {
+                    codigoMaterialField.setText(String.valueOf(estoque.getCodMaterial()));
+                }
                 quantidadeField.setText(String.valueOf(estoque.getQuantidade()));
                 unidadeMedidaField.setText(estoque.getUnidadeMedida());
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -100,9 +108,29 @@ public class ModificarEstoqueController {
 
     @FXML
     private void handleCriarButtonAction(ActionEvent event) {
-
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/stockmaster/Estoque/CriarEstoque.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) criarButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            statusLabel.setText("Erro ao carregar a tela de criação de estoque.");
+        }
     }
 
     public void setEstoque(Estoque estoque) {
+        codigoLoteField.setText(String.valueOf(estoque.getIdEstoque()));
+        Material material = materialServ.buscarProdutoPorId(estoque.getCodMaterial());
+        if (material != null) {
+            codigoMaterialField.setText(material.getDescricaoCurta());
+        } else {
+            codigoMaterialField.setText(String.valueOf(estoque.getCodMaterial()));
+        }
+        quantidadeField.setText(String.valueOf(estoque.getQuantidade()));
+        unidadeMedidaField.setText(estoque.getUnidadeMedida());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        dataLote.setText(sdf.format(estoque.getDataEntrada()));
     }
 }

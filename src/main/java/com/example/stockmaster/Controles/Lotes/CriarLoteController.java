@@ -55,7 +55,7 @@ public class CriarLoteController {
 
     @FXML
     private void handleSalvarButtonAction() {
-        String codigoMaterial = codigoMaterialField.getText();
+        String codigoOuNomeMaterial = codigoMaterialField.getText();
         String quantidade = quantidadeField.getText();
         String data = dataField.getText();
         String tipoAcao = tipoAcaoField.getText();
@@ -67,22 +67,29 @@ public class CriarLoteController {
         }
 
         try {
-            int codMaterial = Integer.parseInt(codigoMaterial);
-            Material material = materialServ.buscarProdutoPorId(codMaterial);
+            Material material = null;
+
+            try {
+                int codMaterial = Integer.parseInt(codigoOuNomeMaterial);
+                material = materialServ.buscarProdutoPorId(codMaterial);
+            } catch (NumberFormatException e) {
+                material = materialServ.buscarProdutoPorNome(codigoOuNomeMaterial);
+            }
+
             if (material == null) {
-                statusLabel.setText("Erro: código de material inválido.");
+                statusLabel.setText("Erro: material não encontrado.");
                 return;
             }
 
             Date dataEntrada = new SimpleDateFormat("dd/MM/yyyy").parse(data);
             BigDecimal quantidadeBigDecimal = new BigDecimal(quantidade);
-            Lote lote = new Lote(0, codMaterial, quantidadeBigDecimal, tipoAcao, dataEntrada);
+            Lote lote = new Lote(0, material.getId_material(), quantidadeBigDecimal, tipoAcao, dataEntrada);
             loteServ.cadastrarLote(lote);
             statusLabel.setText("Lote salvo com sucesso!");
         } catch (ParseException e) {
             statusLabel.setText("Erro ao salvar o lote: formato de data inválido.");
         } catch (NumberFormatException e) {
-            statusLabel.setText("Erro ao salvar o lote: código de material ou quantidade inválidos.");
+            statusLabel.setText("Erro ao salvar o lote: quantidade inválida.");
         }
     }
 

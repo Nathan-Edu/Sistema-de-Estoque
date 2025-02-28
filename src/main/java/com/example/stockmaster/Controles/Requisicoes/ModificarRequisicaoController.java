@@ -1,7 +1,9 @@
 package com.example.stockmaster.Controles.Requisicoes;
 
 import Aplicacoes.Modelos.Requisicao;
+import Aplicacoes.Modelos.Material;
 import Aplicacoes.Servicos.RequisicaoServ;
+import Aplicacoes.Servicos.MaterialServ;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -51,6 +53,7 @@ public class ModificarRequisicaoController {
     private Label statusLabel;
 
     private RequisicaoServ requisicaoServ = new RequisicaoServ();
+    private MaterialServ materialServ = new MaterialServ();
 
     @FXML
     private void handleSalvarButtonAction(ActionEvent event) {
@@ -67,11 +70,18 @@ public class ModificarRequisicaoController {
             Date sqlDate = Date.valueOf(localDate);
 
             int idUsuarioValido = 1;
+
+            Material materialObj = materialServ.buscarProdutoPorNome(material);
+            if (materialObj == null) {
+                statusLabel.setText("Material não encontrado.");
+                return;
+            }
+
             Requisicao requisicao = new Requisicao(
                     Integer.parseInt(numeroRc),
                     idUsuarioValido,
                     solicitante,
-                    Integer.parseInt(material),
+                    materialObj.getId_material(),
                     Double.parseDouble(quantidade),
                     sqlDate.toString()
             );
@@ -103,7 +113,12 @@ public class ModificarRequisicaoController {
             Requisicao requisicao = requisicaoServ.buscarRequisicaoPorId(id);
             if (requisicao != null) {
                 solicitanteField.setText(requisicao.getSolicitante());
-                materialField.setText(String.valueOf(requisicao.getIdMaterial()));
+                Material material = materialServ.buscarProdutoPorId(requisicao.getIdMaterial());
+                if (material != null) {
+                    materialField.setText(material.getDescricaoCurta());
+                } else {
+                    materialField.setText(String.valueOf(requisicao.getIdMaterial()));
+                }
                 quantidadeField.setText(String.valueOf(requisicao.getQuantidade()));
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 LocalDate localDate = LocalDate.parse(requisicao.getData());
@@ -134,7 +149,12 @@ public class ModificarRequisicaoController {
     public void setRequisicao(Requisicao requisicao) {
         numeroRcField.setText(String.valueOf(requisicao.getId()));
         solicitanteField.setText(requisicao.getSolicitante());
-        materialField.setText(String.valueOf(requisicao.getIdMaterial()));
+        Material material = materialServ.buscarProdutoPorId(requisicao.getIdMaterial());
+        if (material != null) {
+            materialField.setText(material.getDescricaoCurta());
+        } else {
+            materialField.setText(String.valueOf(requisicao.getIdMaterial()));
+        }
         quantidadeField.setText(String.valueOf(requisicao.getQuantidade()));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate localDate = LocalDate.parse(requisicao.getData());

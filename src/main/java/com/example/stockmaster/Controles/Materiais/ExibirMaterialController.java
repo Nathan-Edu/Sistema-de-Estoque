@@ -101,13 +101,41 @@ public class ExibirMaterialController {
 
     @FXML
     private void handleModificarButtonAction(ActionEvent event) {
-        carregarTela("/com/example/stockmaster/Materiais/ModificarMaterial.fxml", "Modificar Material");
+        String codigo = codigoMaterialField.getText();
+        try {
+            int id = Integer.parseInt(codigo);
+            Material materialSelecionado = cadastroProdutoServ.buscarProdutoPorId(id);
+            if (materialSelecionado != null) {
+                carregarTelaComMaterialSelecionado("/com/example/stockmaster/Materiais/ModificarMaterial.fxml", "Modificar Material", materialSelecionado);
+            } else {
+                statusLabel.setText("Material não encontrado!");
+            }
+        } catch (NumberFormatException e) {
+            statusLabel.setText("Código inválido!");
+        }
     }
 
     private void carregarTela(String caminhoFXML, String titulo) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(caminhoFXML));
             Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle(titulo);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void carregarTelaComMaterialSelecionado(String caminhoFXML, String titulo, Material material) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(caminhoFXML));
+            Parent root = loader.load();
+
+            ModificarMaterialController controlador = loader.getController();
+            controlador.setMaterial(material);
+
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle(titulo);

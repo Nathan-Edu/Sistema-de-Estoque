@@ -38,12 +38,11 @@
         <TextField fx:id="unidadeMedidaField" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="4" />
         <Label text="Descrição Longa" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
         <TextArea fx:id="descricaoLongaField" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-        <Label fx:id="statusLabel" text="" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+        <Label fx:id="statusLabel" text="Status" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
         <Button fx:id="deletarButton" onAction="#handleDeletarButtonAction" text="Deletar" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
         <Label text="Exibir Material" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
         <Label alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="18.0" prefWidth="84.0" scaleX="2.0" scaleY="2.0" scaleZ="2.0" text="StockMater" textAlignment="CENTER" translateX="2.0" translateY="2.0" translateZ="2.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" />
         <Button fx:id="exibirButton" onAction="#handleExibirButtonAction" text="Exibir" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
         <Button fx:id="voltarButton" mnemonicParsing="false" onAction="#handleVoltarButtonAction" text="Voltar" GridPane.rowIndex="6" />
-      <Label text="Status" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
     </children>
 </GridPane>

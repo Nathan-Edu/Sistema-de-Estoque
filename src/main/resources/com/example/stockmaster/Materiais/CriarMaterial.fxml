@@ -29,7 +29,7 @@
         </Pane>
         <Button fx:id="listaButton" onAction="#handleListaButtonAction" text="Lista" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
         <Label text="Código Material" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-        <TextField fx:id="codigoMaterialField" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+        <TextField fx:id="codigoMaterialField" GridPane.columnIndex="2" GridPane.rowIndex="2" editable="false"/>
         <Label text="Descrição Curta" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
         <TextField fx:id="descricaoCurtaField" GridPane.columnIndex="2" GridPane.rowIndex="3" />
         <Label text="Unidade de Medida" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
@@ -40,6 +40,6 @@
         <Button fx:id="salvarButton" onAction="#handleSalvarButtonAction" text="Salvar" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
         <Label text="Cadastro de Material" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
         <Label alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="72.0" scaleX="2.0" scaleY="2.0" scaleZ="2.0" text="StockMater" textAlignment="CENTER" translateX="2.0" translateY="2.0" translateZ="2.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" />
-        <Label fx:id="statusLabel" text="Status" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" /> <!-- Certifique-se de que o fx:id está correto -->
+        <Label fx:id="statusLabel" text="Status" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
     </children>
 </GridPane>

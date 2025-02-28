@@ -6,9 +6,11 @@ import java.util.Date;
 public class Lote {
     private int idLote;
     private int codMaterial;
+    private String descricaoCurta;
     private BigDecimal quantidade;
     private String tipoAcao;
     private Date dataEntrada;
+    private String status;
 
     public Lote(int idLote, int codMaterial, BigDecimal quantidade, String tipoAcao, Date dataEntrada) {
         this.idLote = idLote;
@@ -32,6 +34,14 @@ public class Lote {
 
     public void setCodMaterial(int codMaterial) {
         this.codMaterial = codMaterial;
+    }
+
+    public String getDescricaoCurta() {
+        return descricaoCurta;
+    }
+
+    public void setDescricaoCurta(String descricaoCurta) {
+        this.descricaoCurta = descricaoCurta;
     }
 
     public BigDecimal getQuantidade() {
@@ -58,8 +68,17 @@ public class Lote {
         this.dataEntrada = dataEntrada;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
-        return String.format("ID: %d, Código Material: %d, Quantidade: %s, Tipo de Ação: %s, Data: %s", idLote, codMaterial, quantidade, tipoAcao, dataEntrada);
+        return String.format("ID: %d, Código Material: %d, Descrição Curta: %s, Quantidade: %s, Tipo de Ação: %s, Data: %s, Status: %s",
+                idLote, codMaterial, descricaoCurta, quantidade, tipoAcao, dataEntrada, status);
     }
 }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LoteDAO {
+
     public void adicionaLote(Lote lote) {
         String sql = "INSERT INTO Lotes (id_material, quantidade, tipo_acao, data) VALUES (?, ?, ?, ?)";
 
@@ -59,7 +60,9 @@ public class LoteDAO {
 
     public List<Lote> listarLotes() {
         List<Lote> lotes = new ArrayList<>();
-        String sql = "SELECT id_lote, id_material, quantidade, tipo_acao, data FROM Lotes";
+        String sql = "SELECT Lotes.id_lote, Materiais.descricao_curta, Lotes.id_material, Lotes.quantidade, Lotes.tipo_acao, Lotes.data " +
+                "FROM Lotes " +
+                "JOIN Materiais ON Lotes.id_material = Materiais.id_material";
 
         try (Connection conn = DatabaseConnection.getConnection();
              Statement stmt = conn.createStatement();

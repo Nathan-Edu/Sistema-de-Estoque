@@ -21,10 +21,10 @@
         <RowConstraints maxHeight="199.8" minHeight="10.0" prefHeight="158.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="78.4" minHeight="10.0" prefHeight="64.4" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="57.60000000000002" minHeight="10.0" prefHeight="57.60000000000002" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="49.4" minHeight="10.0" prefHeight="29.600000000000023" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="49.4" minHeight="10.0" prefHeight="29.600000000000023" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="18.0" prefWidth="61.0" scaleX="2.0" scaleY="2.0" scaleZ="2.0" text="StockMater" textAlignment="CENTER" translateX="2.0" translateY="2.0" translateZ="2.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" />
+        <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="18.0" prefWidth="70.0" scaleX="2.0" scaleY="2.0" scaleZ="2.0" text="StockMaster" textAlignment="CENTER" translateX="2.0" translateY="2.0" translateZ="2.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" />
         <Pane prefHeight="58.0" prefWidth="155.0" style="-fx-background-color: lightblue;" GridPane.columnSpan="3" GridPane.rowIndex="0" />
         <Button fx:id="criarButton" mnemonicParsing="false" onAction="#handleCriarButtonAction" text="Adicionar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
         <Button fx:id="deletarButton" mnemonicParsing="false" onAction="#handleDeletarButtonAction" text="Excluir" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
@@ -43,6 +43,7 @@
         <Button fx:id="voltarButton" layoutX="621.0" layoutY="418.0" mnemonicParsing="false" onAction="#handleVoltarButtonAction" text="Voltar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
         <Label text="Lista de Materiais" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
         <Button fx:id="modificarButton" mnemonicParsing="false" onAction="#handleModificarButtonAction" text="Modificar" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-      <Label text="Status" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+        <Button fx:id="exportarButton" mnemonicParsing="false" onAction="#handleExportarButtonAction" text="Exportar" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+        <Label fx:id="statusLabel" text="Status" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
     </children>
 </GridPane>

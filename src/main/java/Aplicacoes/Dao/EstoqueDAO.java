@@ -106,4 +106,31 @@ public class EstoqueDAO {
             e.printStackTrace();
         }
     }
+    public List<Estoque> buscarEstoquePorNome(String nomeMaterial) {
+        List<Estoque> estoques = new ArrayList<>();
+        String sql = "SELECT e.id_estoque, e.id_material, e.quantidade, e.unidade_medida, e.data_entrada " +
+                "FROM Estoque e JOIN Material m ON e.id_material = m.id_material WHERE m.descricao_curta = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, nomeMaterial);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Estoque estoque = new Estoque(
+                            rs.getInt("id_estoque"),
+                            rs.getInt("id_material"),
+                            rs.getBigDecimal("quantidade"),
+                            rs.getString("unidade_medida"),
+                            rs.getDate("data_entrada")
+                    );
+                    estoques.add(estoque);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return estoques;
+    }
 }

@@ -19,6 +19,9 @@ import java.math.BigDecimal;
 public class CriarMaterialController {
 
     @FXML
+    private TextField codigoMaterialField;
+
+    @FXML
     private TextField descricaoCurtaField;
 
     @FXML
@@ -43,6 +46,12 @@ public class CriarMaterialController {
 
     public CriarMaterialController() {
         this.cadastroProdutoServ = new MaterialServ();
+    }
+
+    @FXML
+    public void initialize() {
+        codigoMaterialField.setText("");
+        codigoMaterialField.setEditable(false);
     }
 
     @FXML

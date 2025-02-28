@@ -2,6 +2,7 @@ package com.example.stockmaster.Controles.Materiais;
 
 import Aplicacoes.Modelos.Material;
 import Aplicacoes.Servicos.MaterialServ;
+import Aplicacoes.Exportacao.CSVExporter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,7 +15,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -47,7 +50,11 @@ public class ListaMaterialController {
     @FXML
     private Button modificarButton;
 
+    @FXML
+    private Button exportarButton;
+
     private MaterialServ materialServ = new MaterialServ();
+    private CSVExporter csvExporter = new CSVExporter();
 
     @FXML
     private void initialize() {
@@ -90,6 +97,28 @@ public class ListaMaterialController {
         Material materialSelecionado = tabelaMateriais.getSelectionModel().getSelectedItem();
         if (materialSelecionado != null) {
             carregarTelaComMaterialSelecionado("/com/example/stockmaster/Materiais/ModificarMaterial.fxml", "Modificar Material", materialSelecionado);
+        }
+    }
+
+    @FXML
+    private void handleExportarButtonAction(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Salvar Arquivo CSV");
+        fileChooser.setInitialFileName("materiais.csv");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        File file = fileChooser.showSaveDialog(tabelaMateriais.getScene().getWindow());
+        if (file != null) {
+            String[] colunas = {"ID", "Descrição Curta", "Unidade", "Descrição Longa"};
+            csvExporter.exportarParaCSV(
+                    tabelaMateriais.getItems(),
+                    file.getPath(),
+                    colunas,
+                    item -> String.format("%d,%s,%s,%s",
+                            item.getId_material(),
+                            item.getDescricao_curta(),
+                            item.getUnidade_Medida(),
+                            item.getDescricao_Longa())
+            );
         }
     }
 

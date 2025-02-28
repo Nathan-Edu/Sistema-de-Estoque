@@ -27,4 +27,7 @@ public class EstoqueServ {
     public void deletarEstoque(int id) {
         estoqueDAO.deletarEstoque(id);
     }
+    public List<Estoque> buscarEstoquePorNome(String nomeMaterial) {
+        return estoqueDAO.buscarEstoquePorNome(nomeMaterial);
+    }
 }

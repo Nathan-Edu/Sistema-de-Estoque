@@ -1,7 +1,9 @@
 package com.example.stockmaster.Controles.Lotes;
 
 import Aplicacoes.Modelos.Lote;
+import Aplicacoes.Modelos.Material;
 import Aplicacoes.Servicos.LoteServ;
+import Aplicacoes.Servicos.MaterialServ;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,13 +55,14 @@ public class ModificarLoteController {
     private Label statusLabel;
 
     private LoteServ loteServ = new LoteServ();
+    private MaterialServ materialServ = new MaterialServ();
 
     private static final Pattern DATE_PATTERN = Pattern.compile("\\d{2}/\\d{2}/\\d{4}");
 
     @FXML
     private void handleSalvarButtonAction() {
         String codigoLote = codigoLoteField.getText();
-        String codigoMaterial = codigoMaterialField.getText();
+        String codigoOuNomeMaterial = codigoMaterialField.getText();
         String quantidade = quantidadeField.getText();
         String data = dataLote.getText();
         String tipoAcaoValue = tipoAcao.getText();
@@ -71,9 +74,22 @@ public class ModificarLoteController {
         }
 
         try {
+            Material material = null;
+            try {
+                int codMaterial = Integer.parseInt(codigoOuNomeMaterial);
+                material = materialServ.buscarProdutoPorId(codMaterial);
+            } catch (NumberFormatException e) {
+                material = materialServ.buscarProdutoPorNome(codigoOuNomeMaterial);
+            }
+
+            if (material == null) {
+                statusLabel.setText("Erro: material não encontrado.");
+                return;
+            }
+
             Date dataEntrada = new SimpleDateFormat("dd/MM/yyyy").parse(data);
             BigDecimal quantidadeBigDecimal = new BigDecimal(quantidade);
-            Lote lote = new Lote(Integer.parseInt(codigoLote), Integer.parseInt(codigoMaterial), quantidadeBigDecimal, tipoAcaoValue, dataEntrada);
+            Lote lote = new Lote(Integer.parseInt(codigoLote), material.getId_material(), quantidadeBigDecimal, tipoAcaoValue, dataEntrada);
             loteServ.atualizarLote(lote);
             statusLabel.setText("Lote modificado com sucesso!");
         } catch (ParseException e) {
@@ -90,7 +106,8 @@ public class ModificarLoteController {
             int id = Integer.parseInt(codigoLote);
             Lote lote = loteServ.buscarLotePorId(id);
             if (lote != null) {
-                codigoMaterialField.setText(String.valueOf(lote.getCodMaterial()));
+                Material material = materialServ.buscarProdutoPorId(lote.getCodMaterial());
+                codigoMaterialField.setText(material != null ? material.getDescricao_curta() : String.valueOf(lote.getCodMaterial()));
                 quantidadeField.setText(String.valueOf(lote.getQuantidade()));
                 dataLote.setText(new SimpleDateFormat("dd/MM/yyyy").format(lote.getDataEntrada()));
                 tipoAcao.setText(lote.getTipoAcao());
@@ -129,7 +146,8 @@ public class ModificarLoteController {
 
     public void setLote(Lote lote) {
         codigoLoteField.setText(String.valueOf(lote.getIdLote()));
-        codigoMaterialField.setText(String.valueOf(lote.getCodMaterial()));
+        Material material = materialServ.buscarProdutoPorId(lote.getCodMaterial());
+        codigoMaterialField.setText(material != null ? material.getDescricao_curta() : String.valueOf(lote.getCodMaterial()));
         quantidadeField.setText(String.valueOf(lote.getQuantidade()));
         dataLote.setText(new SimpleDateFormat("dd/MM/yyyy").format(lote.getDataEntrada()));
         tipoAcao.setText(lote.getTipoAcao());

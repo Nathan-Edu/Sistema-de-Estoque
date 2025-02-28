@@ -32,7 +32,7 @@ public class MaterialServ {
     }
 
     public void registrarMovimentacao(Material material, String tipo, int quantidade) {
-        LOGGER.info("Movimentação registrada: " + tipo + " de " + quantidade + " unidades do produto: " + material.getDescricao());
+        LOGGER.info("Movimentação registrada: " + tipo + " de " + quantidade + " unidades do produto: " + material.getDescricao_curta());
     }
 
     public void listarMovimentacao() {
@@ -70,5 +70,13 @@ public class MaterialServ {
     public void atualizarMaterial(Material material) {
         materialDAO.atualizarMaterial(material);
         LOGGER.info("Material atualizado: " + material);
+    }
+
+    public int obterProximoId() {
+        return materialDAO.obterProximoId();
+    }
+
+    public Material buscarProdutoPorNome(String nome) {
+        return materialDAO.buscarMaterialPorNome(nome);
     }
 }

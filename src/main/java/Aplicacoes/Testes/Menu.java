@@ -28,7 +28,7 @@ public class Menu {
             System.out.println("6. Sair");
             System.out.print("Escolha uma opção: ");
             opcaoPrincipal = scanner.nextInt();
-            scanner.nextLine(); // Consumir nova linha
+            scanner.nextLine();
 
             switch (opcaoPrincipal) {
                 case 1:
@@ -67,7 +67,7 @@ public class Menu {
             System.out.println("4. Voltar ao menu principal");
             System.out.print("Escolha uma opção: ");
             opcaoMateriais = scanner.nextInt();
-            scanner.nextLine(); // Consumir nova linha
+            scanner.nextLine();
 
             switch (opcaoMateriais) {
                 case 1:
@@ -153,7 +153,7 @@ public class Menu {
             System.out.println("4. Voltar ao menu principal");
             System.out.print("Escolha uma opção: ");
             opcaoUsuarios = scanner.nextInt();
-            scanner.nextLine(); // Consumir nova linha
+            scanner.nextLine();
 
             switch (opcaoUsuarios) {
                 case 1:
@@ -216,7 +216,7 @@ public class Menu {
             System.out.println("5. Voltar ao menu principal");
             System.out.print("Escolha uma opção: ");
             opcaoLotes = scanner.nextInt();
-            scanner.nextLine(); // Consumir nova linha
+            scanner.nextLine();
 
             switch (opcaoLotes) {
                 case 1:
@@ -303,8 +303,7 @@ public class Menu {
             System.out.println("5. Voltar ao menu principal");
             System.out.print("Escolha uma opção: ");
             opcaoEstoques = scanner.nextInt();
-            scanner.nextLine(); // Consumir nova linha
-
+            scanner.nextLine();
             switch (opcaoEstoques) {
                 case 1:
                     System.out.print("ID do Estoque: ");
@@ -390,7 +389,7 @@ public class Menu {
             System.out.println("5. Voltar ao menu principal");
             System.out.print("Escolha uma opção: ");
             opcaoRequisicoes = scanner.nextInt();
-            scanner.nextLine(); // Consumir nova linha
+            scanner.nextLine();
 
             switch (opcaoRequisicoes) {
                 case 1:

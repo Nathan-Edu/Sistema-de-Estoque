@@ -21,15 +21,16 @@
         <RowConstraints maxHeight="50.0" minHeight="13.0" percentHeight="10.0" prefHeight="21.0" vgrow="ALWAYS" />
         <RowConstraints maxHeight="64.0" minHeight="4.0" percentHeight="10.0" prefHeight="4.0" vgrow="ALWAYS" />
         <RowConstraints maxHeight="152.60000000000002" minHeight="92.60000000000002" prefHeight="152.60000000000002" />
+      <RowConstraints maxHeight="152.60000000000002" prefHeight="152.60000000000002" />
     </rowConstraints>
     <children>
         <Pane style="-fx-background-color: lightblue;" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0">
             <children>
-                <ImageView fitHeight="39.0" fitWidth="204.0" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fitHeight="39.0" fitWidth="162.0" pickOnBounds="true" preserveRatio="true" />
             </children>
         </Pane>
 
-        <Label text="Código Material" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+        <Label text="Material" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
         <TextField fx:id="codigoMaterialField" GridPane.columnIndex="2" GridPane.rowIndex="3" />
 
         <Label text="Quantidade" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
@@ -44,9 +45,9 @@
         <Button fx:id="salvarButton" onAction="#handleSalvarButtonAction" text="Salvar" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
         <Button fx:id="voltarButton" layoutX="526.0" layoutY="377.0" onAction="#handleVoltarButtonAction" text="Voltar" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
 
-        <Label prefHeight="18.0" prefWidth="76.0" text="Criar Estoque" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
+        <Label prefHeight="18.0" prefWidth="76.0" text="Criar Estoque" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
         <Label fx:id="statusLabel" text="Status" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
-        <Label alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="18.0" prefWidth="65.0" scaleX="2.0" scaleY="2.0" scaleZ="2.0" text="StockMaster" textAlignment="CENTER" translateX="2.0" translateY="2.0" translateZ="2.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+        <Label alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="18.0" prefWidth="65.0" scaleX="2.0" scaleY="2.0" scaleZ="2.0" text="StockMaster" textAlignment="CENTER" translateX="2.0" translateY="2.0" translateZ="2.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" />
         <Button fx:id="listaButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleListaButtonAction" text="Lista" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
     </children>
 </GridPane>
