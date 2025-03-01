@@ -13,7 +13,7 @@ public class PagInicialApp extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/stockmaster/Principal/PagInicial.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 700);
-        stage.setTitle("Tela Principal - Sistema de Estoque");
+        stage.setTitle("Tela Principal");
         stage.setScene(scene);
         stage.show();
     }
