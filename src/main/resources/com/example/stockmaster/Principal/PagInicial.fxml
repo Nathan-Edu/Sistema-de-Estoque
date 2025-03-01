@@ -5,13 +5,13 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="648.0" prefWidth="612.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.stockmaster.Controles.Principal.PagInicialController">
+<AnchorPane prefHeight="648.0" prefWidth="612.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.stockmaster.Controles.Principal.PagInicialController">
     <children>
         <HBox layoutX="0.0" layoutY="0.0" prefHeight="54.0" prefWidth="622.0" style="-fx-background-color: #2C3E50;">
             <children>
-                <ImageView fitHeight="50.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fitHeight="50.0" fitWidth="179.0" pickOnBounds="true" preserveRatio="true" />
                 <Label alignment="CENTER" prefHeight="47.0" prefWidth="304.0" style="-fx-text-fill: white; -fx-font-size: 20px;" text="StockMaster" textAlignment="CENTER" />
-                <SplitMenuButton alignment="CENTER_RIGHT" contentDisplay="CENTER" maxHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="Configurações" textAlignment="CENTER" textOverrun="CLIP" HBox.hgrow="SOMETIMES">
+                <SplitMenuButton alignment="CENTER_RIGHT" contentDisplay="CENTER" maxHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="52.0" prefWidth="231.0" text="Configurações" textAlignment="CENTER" textOverrun="CLIP" HBox.hgrow="SOMETIMES">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#handleUserMenuItemAction" text="Usuário" />
                         <MenuItem mnemonicParsing="false" onAction="#handleLogoutMenuItemAction" text="Sair" />
@@ -64,8 +64,6 @@
                     </content>
                 </Tab>
 
-
-                <!-- Aba Materiais -->
                 <Tab text="Materiais">
                     <content>
                         <AnchorPane>

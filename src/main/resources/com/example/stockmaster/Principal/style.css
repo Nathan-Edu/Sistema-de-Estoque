@@ -1,0 +1,108 @@
+/* Estilo para a barra superior */
+.hbox {
+    -fx-background-color: #2C3E50;
+}
+
+.label {
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+}
+
+/* Estilo para os botões */
+.button {
+    -fx-background-color: #3498DB;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20 10 20;
+    -fx-cursor: hand;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 1);
+}
+
+.button:hover {
+    -fx-background-color: #2980B9;
+}
+
+.button:pressed {
+    -fx-background-color: #1C6A9E;
+}
+
+/* Estilo para os botões dentro das TilePanes */
+.tile-pane .button {
+    -fx-pref-width: 100px;
+    -fx-pref-height: 100px;
+}
+
+.tile-pane .button:hover {
+    -fx-background-color: #2980B9;
+}
+
+.tile-pane .button:pressed {
+    -fx-background-color: #1C6A9E;
+}
+
+/* Estilo para os SplitMenuButtons */
+.split-menu-button {
+    -fx-background-color: #2C3E50;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 5;
+    -fx-cursor: hand;
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+    -fx-min-width: 40px;
+    -fx-min-height: 40px;
+    -fx-pref-width: 40px;
+    -fx-pref-height: 40px;
+    -fx-border-color: #3498DB;
+    -fx-border-width: 2;
+}
+
+.split-menu-button:hover {
+    -fx-background-color: #34495E;
+}
+
+.split-menu-button:pressed {
+    -fx-background-color: #2C3E50;
+}
+
+/* Estilo para os itens do SplitMenuButton */
+.menu-item {
+    -fx-background-color: #2C3E50;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-padding: 5 10;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+}
+
+.menu-item:hover {
+    -fx-background-color: #34495E;
+}
+
+.menu-item:pressed {
+    -fx-background-color: #1C6A9E;
+}
+
+/* Estilo para os TabPane e Tabs */
+.tab-pane {
+    -fx-tab-min-width: 100px;
+    -fx-tab-max-width: 100px;
+    -fx-tab-min-height: 30px;
+    -fx-tab-max-height: 30px;
+    -fx-font-size: 14px;
+}
+
+.tab {
+    -fx-background-color: #2C3E50;
+}
+
+.tab:selected {
+    -fx-background-color: #2980B9;
+    -fx-text-base-color: white;
+}
+
+.tab .tab-label {
+    -fx-text-fill: white;
+}
