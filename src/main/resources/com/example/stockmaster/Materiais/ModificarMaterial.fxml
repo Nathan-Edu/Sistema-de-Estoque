@@ -1,55 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="428.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.stockmaster.Controles.Materiais.ModificarMaterialController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.stockmaster.Controles.Materiais.ModificarMaterialController">
     <columnConstraints>
-        <ColumnConstraints hgrow="ALWAYS" percentWidth="15.0" />
-        <ColumnConstraints hgrow="ALWAYS" percentWidth="19.0" />
-        <ColumnConstraints hgrow="ALWAYS" percentWidth="64.0" />
-        <ColumnConstraints hgrow="ALWAYS" percentWidth="11.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="11.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="ALWAYS" percentWidth="5.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="13.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="ALWAYS" percentWidth="23.0" />
+        <ColumnConstraints hgrow="ALWAYS" percentWidth="77.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="6.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="ALWAYS" percentWidth="13.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="9.0" prefWidth="100.0" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
+        <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
         <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
         <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
         <RowConstraints percentHeight="10.0" vgrow="ALWAYS" />
         <RowConstraints maxHeight="88.0" minHeight="69.0" percentHeight="15.0" prefHeight="88.0" vgrow="ALWAYS" />
         <RowConstraints maxHeight="152.0" minHeight="94.0" percentHeight="35.0" prefHeight="152.0" vgrow="ALWAYS" />
-        <RowConstraints maxHeight="99.0" minHeight="0.0" percentHeight="10.0" prefHeight="23.0" vgrow="ALWAYS" />
-        <RowConstraints maxHeight="99.0" minHeight="10.0" percentHeight="10.0" prefHeight="17.0" vgrow="ALWAYS" />
-        <RowConstraints maxHeight="57.60000000000002" minHeight="0.0" prefHeight="0.0" />
+        <RowConstraints maxHeight="99.0" minHeight="0.0" percentHeight="10.0" prefHeight="26.0" vgrow="ALWAYS" />
+      <RowConstraints maxHeight="99.0" minHeight="10.0" percentHeight="10.0" prefHeight="59.0" vgrow="ALWAYS" />
+      <RowConstraints maxHeight="99.0" minHeight="10.0" percentHeight="10.0" prefHeight="59.0" vgrow="ALWAYS" />
+        <RowConstraints maxHeight="99.0" minHeight="10.0" percentHeight="10.0" prefHeight="59.0" vgrow="ALWAYS" />
+      <RowConstraints maxHeight="17.600000000000023" minHeight="0.0" prefHeight="0.0" />
     </rowConstraints>
     <children>
-        <Pane style="-fx-background-color: lightblue;" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0">
-            <children>
-                <ImageView fitHeight="39.0" fitWidth="204.0" pickOnBounds="true" preserveRatio="true" />
-            </children>
-        </Pane>
+        <Button fx:id="criarButton" mnemonicParsing="false" onAction="#handleCriarButtonAction" text="Criar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+        <Button fx:id="exibirButton" mnemonicParsing="false" onAction="#handleExibirButtonAction" text="Exibir" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
 
-        <Button fx:id="criarButton" mnemonicParsing="false" onAction="#handleCriarButtonAction" text="Criar" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-        <Button fx:id="exibirButton" mnemonicParsing="false" onAction="#handleExibirButtonAction" text="Exibir" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+        <Label text=" Material" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+        <TextField fx:id="codigoMaterialField" GridPane.columnIndex="3" GridPane.rowIndex="3" />
 
-        <Label text="Código Material" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-        <TextField fx:id="codigoMaterialField" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+        <Label text="Descrição Curta" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+        <TextField fx:id="descricaoCurtaField" GridPane.columnIndex="3" GridPane.rowIndex="4" />
 
-        <Label text="Descrição Curta" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-        <TextField fx:id="descricaoCurtaField" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+        <Label text="Unidade de Medida" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+        <TextField fx:id="unidadeMedidaField" GridPane.columnIndex="3" GridPane.rowIndex="5" />
 
-        <Label text="Unidade de Medida" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-        <TextField fx:id="unidadeMedidaField" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+        <Label text="Descrição Longa" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+        <TextArea fx:id="descricaoLongaField" prefHeight="127.0" prefWidth="326.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
 
-        <Label text="Descrição Longa" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-        <TextField fx:id="descricaoLongaField" alignment="TOP_LEFT" prefHeight="127.0" prefWidth="326.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+        <Label text="Origem do Material" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+        <ComboBox fx:id="origemMaterialComboBox" prefHeight="26.0" prefWidth="397.0" GridPane.columnIndex="3" GridPane.rowIndex="7" />
 
-        <Button fx:id="salvarButton" onAction="#handleSalvarButtonAction" text="Salvar" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+        <Label text="Status" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+        <ComboBox fx:id="statusComboBox" prefHeight="26.0" prefWidth="397.0" GridPane.columnIndex="3" GridPane.rowIndex="8" />
 
-        <Label text="Modificar Material" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
-        <Label fx:id="statusLabel" text="Status" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
-        <Label alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="72.0" scaleX="2.0" scaleY="2.0" scaleZ="2.0" text="StockMaster" textAlignment="CENTER" translateX="2.0" translateY="2.0" translateZ="2.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" />
-        <Button fx:id="voltarButton" layoutX="526.0" layoutY="377.0" onAction="#handleVoltarButtonAction" text="Voltar" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+        <Button fx:id="salvarButton" onAction="#handleSalvarButtonAction" text="Salvar" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER" />
+
+        <Label text="Modificar Material" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
+        <Label fx:id="resultadoLabel" text="Resultado" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
+
+        <Label alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="72.0" scaleX="2.0" scaleY="2.0" scaleZ="2.0" text="StockMaster" textAlignment="CENTER" translateX="2.0" translateY="2.0" translateZ="2.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" />
+        <Button fx:id="voltarButton" layoutX="526.0" layoutY="377.0" onAction="#handleVoltarButtonAction" text="&lt;-" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+        <Button fx:id="listaButton" layoutX="38.0" layoutY="86.0" mnemonicParsing="false" onAction="#handleListaButtonAction" text="Lista" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
     </children>
 </GridPane>

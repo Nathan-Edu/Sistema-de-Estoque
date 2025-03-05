@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -39,6 +40,12 @@ public class ListaMaterialController {
     private TableColumn<Material, String> descricaoLongaColumn;
 
     @FXML
+    private TableColumn<Material, String> origemMaterialColumn;
+
+    @FXML
+    private TableColumn<Material, String> statusColumn;
+
+    @FXML
     private Button criarButton;
 
     @FXML
@@ -53,6 +60,9 @@ public class ListaMaterialController {
     @FXML
     private Button exportarButton;
 
+    @FXML
+    private Label resultadoLabel;
+
     private MaterialServ materialServ = new MaterialServ();
     private CSVExporter csvExporter = new CSVExporter();
 
@@ -60,8 +70,10 @@ public class ListaMaterialController {
     private void initialize() {
         codigoMaterialColumn.setCellValueFactory(new PropertyValueFactory<>("id_material"));
         descricaoCurtaColumn.setCellValueFactory(new PropertyValueFactory<>("descricao_curta"));
-        descricaoLongaColumn.setCellValueFactory(new PropertyValueFactory<>("descricao_Longa"));
-        unidadeMedidaColumn.setCellValueFactory(new PropertyValueFactory<>("unidade_Medida"));
+        descricaoLongaColumn.setCellValueFactory(new PropertyValueFactory<>("descricao_longa"));
+        unidadeMedidaColumn.setCellValueFactory(new PropertyValueFactory<>("unidade_medida"));
+        origemMaterialColumn.setCellValueFactory(new PropertyValueFactory<>("origem_material"));
+        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
 
         carregarDados();
     }
@@ -83,6 +95,7 @@ public class ListaMaterialController {
         if (materialSelecionado != null) {
             materialServ.deletarMaterial(materialSelecionado.getId_material());
             carregarDados();
+            resultadoLabel.setText("Material excluído com sucesso!");
         }
     }
 
@@ -108,17 +121,20 @@ public class ListaMaterialController {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
         File file = fileChooser.showSaveDialog(tabelaMateriais.getScene().getWindow());
         if (file != null) {
-            String[] colunas = {"ID", "Descrição Curta", "Unidade", "Descrição Longa"};
+            String[] colunas = {"ID", "Descrição Curta", "Unidade", "Descrição Longa", "Origem", "Status"};
             csvExporter.exportarParaCSV(
                     tabelaMateriais.getItems(),
                     file.getPath(),
                     colunas,
-                    item -> String.format("%d,%s,%s,%s",
+                    item -> String.format("%d,%s,%s,%s,%s,%s",
                             item.getId_material(),
                             item.getDescricao_curta(),
-                            item.getUnidade_Medida(),
-                            item.getDescricao_Longa())
+                            item.getUnidade_medida(),
+                            item.getDescricao_longa(),
+                            item.getOrigem_material(),
+                            item.getStatus())
             );
+            resultadoLabel.setText("Dados exportados com sucesso!");
         }
     }
 

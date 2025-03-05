@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <GridPane fx:id="listaEstoque" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="678.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.stockmaster.Controles.Estoque.ListaEstoqueController">
@@ -10,8 +9,8 @@
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.0" minWidth="10.0" prefWidth="70.4" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.0" minWidth="10.0" prefWidth="81.59999999999998" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="337.6000305175781" minWidth="10.0" prefWidth="332.60003051757815" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="401.20000000000005" minWidth="10.0" prefWidth="96.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="52.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="401.20000000000005" minWidth="10.0" prefWidth="80.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="68.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="21.0" />
     </columnConstraints>
     <rowConstraints>
@@ -27,21 +26,17 @@
     </rowConstraints>
     <children>
         <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="18.0" prefWidth="69.0" scaleX="2.0" scaleY="2.0" scaleZ="2.0" text="StockMaster" textAlignment="CENTER" translateX="2.0" translateY="2.0" translateZ="2.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" />
-        <Pane prefHeight="64.0" prefWidth="390.0" style="-fx-background-color: lightblue;" GridPane.columnSpan="3" GridPane.rowIndex="0">
-            <children>
-                <ImageView fitHeight="58.0" fitWidth="186.0" layoutX="-3.0" pickOnBounds="true" preserveRatio="true" />
-            </children>
-        </Pane>
         <Button fx:id="adicionarButton" mnemonicParsing="false" onAction="#handleAdicionarButtonAction" text="Adicionar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
         <Button fx:id="salvarButton" mnemonicParsing="false" onAction="#handleSalvarButtonAction" text="Excluir" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
-        <ScrollPane prefHeight="224.0" prefWidth="388.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="3" GridPane.rowSpan="3">
+        <ScrollPane prefHeight="289.0" prefWidth="536.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="3" GridPane.rowSpan="3">
             <content>
-                <TableView fx:id="tabelaEstoque" prefHeight="263.0" prefWidth="510.0">
+                <TableView fx:id="tabelaEstoque" prefHeight="273.0" prefWidth="624.0">
                     <columns>
-                        <TableColumn fx:id="codigoEstoqueColumn" prefWidth="100.199980199337" text="Código Estoque" />
-                        <TableColumn fx:id="materialColumn" prefWidth="161.4000015258789" text="Material" />
-                        <TableColumn fx:id="quantidadeColumn" prefWidth="89.5999755859375" text="Quantidade" />
-                        <TableColumn fx:id="dataEntradaColumn" prefWidth="145.60000610351562" text="Data Entrada" />
+                        <TableColumn fx:id="codigoEstoqueColumn" prefWidth="88.79999166727066" text="Estoque" />
+                        <TableColumn fx:id="materialColumn" prefWidth="142.40000915527344" text="Material" />
+                  <TableColumn fx:id="unidadeMedidaColumn" prefWidth="151.20001220703125" text="Unidade de Medida" />
+                        <TableColumn fx:id="quantidadeColumn" prefWidth="96.0" text="Quantidade" />
+                        <TableColumn fx:id="dataEntradaColumn" prefWidth="152.39996337890625" text="Data Entrada" />
                     </columns>
                 </TableView>
             </content>
@@ -49,7 +44,7 @@
         <Button fx:id="voltarButton" layoutX="621.0" layoutY="418.0" mnemonicParsing="false" onAction="#handleVoltarButtonAction" text="Voltar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
         <Label text="Lista do Estoque" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
         <Button fx:id="modificarButton" mnemonicParsing="false" onAction="#handleModificarButtonAction" text="Modificar" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-        <Button fx:id="exportarButton" mnemonicParsing="false" onAction="#handleExportarButtonAction" text="Exportar" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+        <Button fx:id="exportarButton" mnemonicParsing="false" onAction="#handleExportarButtonAction" prefHeight="26.0" prefWidth="68.0" text="Exportar" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
         <Label fx:id="statusLabel" text="Status" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
     </children>
 </GridPane>

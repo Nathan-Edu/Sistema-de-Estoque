@@ -14,7 +14,6 @@ import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 
 public class ExibirMaterialController {
 
@@ -29,6 +28,12 @@ public class ExibirMaterialController {
 
     @FXML
     private TextArea descricaoLongaField;
+
+    @FXML
+    private TextField origemMaterialField;
+
+    @FXML
+    private TextField statusField;
 
     @FXML
     private Button criarButton;
@@ -46,46 +51,48 @@ public class ExibirMaterialController {
     private Button voltarButton;
 
     @FXML
-    private Label statusLabel;
+    private Label resultadoLabel;
 
-    private MaterialServ cadastroProdutoServ = new MaterialServ();
+    private MaterialServ materialServ = new MaterialServ();
 
     @FXML
     private void handleExibirButtonAction(ActionEvent event) {
-        String codigo = codigoMaterialField.getText();
         try {
-            int id = Integer.parseInt(codigo);
-            Material material = cadastroProdutoServ.buscarProdutoPorId(id);
+            String input = codigoMaterialField.getText();
+            Material material = null;
+
+            // Tentar buscar por ID
+            try {
+                int id = Integer.parseInt(input);
+                material = materialServ.buscarProdutoPorId(id);
+            } catch (NumberFormatException e) {
+                // Se não for um ID válido, buscar por nome
+                material = materialServ.buscarProdutoPorNome(input);
+            }
+
             if (material != null) {
-                descricaoCurtaField.setText(material.getDescricao_curta());
-                descricaoCurtaField.setEditable(false);
-                descricaoLongaField.setText(material.getDescricao_Longa());
-                descricaoLongaField.setEditable(false);
-                unidadeMedidaField.setText(material.getUnidade_Medida());
-                unidadeMedidaField.setEditable(false);
-                statusLabel.setText("Material encontrado!");
+                setMaterial(material);
+                resultadoLabel.setText("Material carregado com sucesso!");
             } else {
-                statusLabel.setText("Material não encontrado!");
+                resultadoLabel.setText("Material não encontrado.");
             }
         } catch (NumberFormatException e) {
-            statusLabel.setText("Código inválido!");
+            resultadoLabel.setText("Erro: entrada inválida.");
         }
+        resultadoLabel.setVisible(true);
     }
 
     @FXML
     private void handleDeletarButtonAction(ActionEvent event) {
-        String codigo = codigoMaterialField.getText();
         try {
-            int id = Integer.parseInt(codigo);
-            cadastroProdutoServ.deletarMaterial(id);
-            statusLabel.setText("Material deletado com sucesso!");
-
-            descricaoCurtaField.clear();
-            descricaoLongaField.clear();
-            unidadeMedidaField.clear();
+            int id = Integer.parseInt(codigoMaterialField.getText());
+            materialServ.deletarMaterial(id);
+            resultadoLabel.setText("Material deletado com sucesso!");
+            limparCampos();
         } catch (NumberFormatException e) {
-            statusLabel.setText("Código inválido!");
+            resultadoLabel.setText("Erro: entrada inválida.");
         }
+        resultadoLabel.setVisible(true);
     }
 
     @FXML
@@ -104,15 +111,16 @@ public class ExibirMaterialController {
         String codigo = codigoMaterialField.getText();
         try {
             int id = Integer.parseInt(codigo);
-            Material materialSelecionado = cadastroProdutoServ.buscarProdutoPorId(id);
+            Material materialSelecionado = materialServ.buscarProdutoPorId(id);
             if (materialSelecionado != null) {
                 carregarTelaComMaterialSelecionado("/com/example/stockmaster/Materiais/ModificarMaterial.fxml", "Modificar Material", materialSelecionado);
             } else {
-                statusLabel.setText("Material não encontrado!");
+                resultadoLabel.setText("Material não encontrado!");
             }
         } catch (NumberFormatException e) {
-            statusLabel.setText("Código inválido!");
+            resultadoLabel.setText("Código inválido!");
         }
+        resultadoLabel.setVisible(true);
     }
 
     private void carregarTela(String caminhoFXML, String titulo) {
@@ -143,5 +151,28 @@ public class ExibirMaterialController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setMaterial(Material material) {
+        codigoMaterialField.setText(String.valueOf(material.getId_material()));
+        descricaoCurtaField.setText(material.getDescricao_curta());
+        descricaoCurtaField.setEditable(false);
+        descricaoLongaField.setText(material.getDescricao_longa());
+        descricaoLongaField.setEditable(false);
+        unidadeMedidaField.setText(material.getUnidade_medida());
+        unidadeMedidaField.setEditable(false);
+        origemMaterialField.setText(material.getOrigem_material());
+        origemMaterialField.setEditable(false);
+        statusField.setText(material.getStatus());
+        statusField.setEditable(false);
+    }
+
+    private void limparCampos() {
+        codigoMaterialField.clear();
+        descricaoCurtaField.clear();
+        descricaoLongaField.clear();
+        unidadeMedidaField.clear();
+        origemMaterialField.clear();
+        statusField.clear();
     }
 }

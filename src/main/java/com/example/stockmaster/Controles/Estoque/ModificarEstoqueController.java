@@ -14,14 +14,14 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 public class ModificarEstoqueController {
 
     @FXML
-    private TextField codigoLoteField;
+    private TextField codigoEstoqueField;
 
     @FXML
     private TextField codigoMaterialField;
@@ -33,7 +33,7 @@ public class ModificarEstoqueController {
     private TextField unidadeMedidaField;
 
     @FXML
-    private TextField dataLote;
+    private DatePicker dataPicker;
 
     @FXML
     private Button exibirButton;
@@ -48,55 +48,95 @@ public class ModificarEstoqueController {
     private Button criarButton;
 
     @FXML
+    private Button listaButton;
+
+    @FXML
     private Label statusLabel;
 
     private EstoqueServ estoqueServ = new EstoqueServ();
     private MaterialServ materialServ = new MaterialServ();
 
+    private Estoque estoqueAtual;
+
     @FXML
     private void handleExibirButtonAction(ActionEvent event) {
         try {
-            int codigoLote = Integer.parseInt(codigoLoteField.getText());
-            Estoque estoque = estoqueServ.buscarEstoquePorId(codigoLote);
+            String codigoEstoqueStr = codigoEstoqueField.getText().trim();
+
+            if (codigoEstoqueStr.isEmpty()) {
+                statusLabel.setText("Informe um código de estoque válido!");
+                return;
+            }
+
+            int codigoEstoque = Integer.parseInt(codigoEstoqueStr);
+            Estoque estoque = estoqueServ.buscarEstoquePorId(codigoEstoque);
 
             if (estoque != null) {
-                Material material = materialServ.buscarProdutoPorId(estoque.getCodMaterial());
-                if (material != null) {
-                    codigoMaterialField.setText(material.getDescricaoCurta());
-                } else {
-                    codigoMaterialField.setText(String.valueOf(estoque.getCodMaterial()));
-                }
-                quantidadeField.setText(String.valueOf(estoque.getQuantidade()));
-                unidadeMedidaField.setText(estoque.getUnidadeMedida());
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                dataLote.setText(sdf.format(estoque.getDataEntrada()));
-                statusLabel.setText("Dados exibidos.");
+                estoqueAtual = estoque;
+                preencherCampos(estoque);
+                statusLabel.setText("Dados exibidos com sucesso!");
             } else {
                 statusLabel.setText("Estoque não encontrado.");
             }
         } catch (NumberFormatException e) {
-            statusLabel.setText("Código do Estoque deve ser um número válido.");
+            statusLabel.setText("Erro: Código de estoque deve ser numérico.");
+        } catch (Exception e) {
+            statusLabel.setText("Erro ao exibir estoque: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
     @FXML
     private void handleSalvarButtonAction(ActionEvent event) {
         try {
-            int codigoLote = Integer.parseInt(codigoLoteField.getText());
-            int codMaterial = Integer.parseInt(codigoMaterialField.getText());
-            BigDecimal quantidade = new BigDecimal(quantidadeField.getText());
-            String unidadeMedida = unidadeMedidaField.getText();
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            java.util.Date parsedDate = sdf.parse(dataLote.getText());
-            Date dataEntrada = new Date(parsedDate.getTime());
+            String codigoEstoqueStr = codigoEstoqueField.getText().trim();
+            if (codigoEstoqueStr.isEmpty()) {
+                throw new NumberFormatException("Código de estoque está vazio");
+            }
+            int codigoEstoque = Integer.parseInt(codigoEstoqueStr);
 
-            Estoque estoqueAtualizado = new Estoque(codigoLote, codMaterial, quantidade, unidadeMedida, dataEntrada);
+            String codigoMaterialStr = codigoMaterialField.getText().trim();
+            Material material;
+            int codMaterial;
+
+            try {
+                codMaterial = Integer.parseInt(codigoMaterialStr);
+                material = materialServ.buscarProdutoPorId(codMaterial);
+            } catch (NumberFormatException e) {
+                material = materialServ.buscarProdutoPorNome(codigoMaterialStr);
+                if (material != null) {
+                    codMaterial = material.getId();
+                } else {
+                    throw new NumberFormatException("Código de material inválido");
+                }
+            }
+
+            String quantidadeStr = quantidadeField.getText().trim();
+            if (quantidadeStr.isEmpty()) {
+                throw new NumberFormatException("Quantidade está vazia");
+            }
+            BigDecimal quantidade = new BigDecimal(quantidadeStr);
+
+            String unidadeMedida = unidadeMedidaField.getText().trim();
+            LocalDate localDate = dataPicker.getValue();
+
+            if (unidadeMedida.isEmpty() || localDate == null) {
+                statusLabel.setText("Preencha todos os campos corretamente!");
+                return;
+            }
+
+            Date dataEntrada = Date.valueOf(localDate);
+
+            Estoque estoqueAtualizado = new Estoque(codigoEstoque, codMaterial, quantidade, unidadeMedida, dataEntrada);
             estoqueServ.atualizarEstoque(estoqueAtualizado);
+
             statusLabel.setText("Estoque atualizado com sucesso!");
+
         } catch (NumberFormatException e) {
-            statusLabel.setText("Código do Estoque e quantidade devem ser números válidos.");
-        } catch (ParseException e) {
-            statusLabel.setText("Data deve estar no formato dd/MM/yyyy.");
+            statusLabel.setText("Erro: Verifique os campos numéricos e assegure-se de que todos os valores são válidos.");
+        } catch (Exception e) {
+            statusLabel.setText("Erro ao atualizar estoque: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -108,29 +148,48 @@ public class ModificarEstoqueController {
 
     @FXML
     private void handleCriarButtonAction(ActionEvent event) {
+        carregarTela("/com/example/stockmaster/Estoque/CriarEstoque.fxml", "Criar Estoque");
+    }
+
+    @FXML
+    private void handleListaButtonAction(ActionEvent event) {
+        carregarTela("/com/example/stockmaster/Estoque/ListaEstoque.fxml", "Lista de Estoques");
+    }
+
+    private void carregarTela(String caminhoFXML, String titulo) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/stockmaster/Estoque/CriarEstoque.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(caminhoFXML));
             Parent root = loader.load();
-            Stage stage = (Stage) criarButton.getScene().getWindow();
+            Stage stage = new Stage();
             stage.setScene(new Scene(root));
+            stage.setTitle(titulo);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            statusLabel.setText("Erro ao carregar a tela de criação de estoque.");
+            statusLabel.setText("Erro ao abrir a tela: " + e.getMessage());
         }
     }
 
     public void setEstoque(Estoque estoque) {
-        codigoLoteField.setText(String.valueOf(estoque.getIdEstoque()));
+        estoqueAtual = estoque;
+        preencherCampos(estoque);
+    }
+
+    private void preencherCampos(Estoque estoque) {
+        codigoEstoqueField.setText(String.valueOf(estoque.getIdEstoque()));
+
         Material material = materialServ.buscarProdutoPorId(estoque.getCodMaterial());
         if (material != null) {
             codigoMaterialField.setText(material.getDescricaoCurta());
         } else {
             codigoMaterialField.setText(String.valueOf(estoque.getCodMaterial()));
         }
-        quantidadeField.setText(String.valueOf(estoque.getQuantidade()));
+
+        quantidadeField.setText(estoque.getQuantidade().toString());
         unidadeMedidaField.setText(estoque.getUnidadeMedida());
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        dataLote.setText(sdf.format(estoque.getDataEntrada()));
+
+        Date dataEntrada = (Date) estoque.getDataEntrada();
+        LocalDate localDate = dataEntrada.toLocalDate();
+        dataPicker.setValue(localDate);
     }
 }

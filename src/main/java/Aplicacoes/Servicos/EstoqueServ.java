@@ -12,8 +12,8 @@ public class EstoqueServ {
         estoqueDAO.adicionaEstoque(estoque);
     }
 
-    public Estoque buscarEstoquePorId(int id) {
-        return estoqueDAO.buscarEstoquePorId(id);
+    public Estoque buscarEstoquePorId(int idEstoque) {
+        return estoqueDAO.buscarEstoquePorId(idEstoque);
     }
 
     public List<Estoque> listarEstoques() {
@@ -24,9 +24,10 @@ public class EstoqueServ {
         estoqueDAO.atualizarEstoque(estoque);
     }
 
-    public void deletarEstoque(int id) {
-        estoqueDAO.deletarEstoque(id);
+    public void deletarEstoque(int idEstoque) {
+        estoqueDAO.deletarEstoque(idEstoque);
     }
+
     public List<Estoque> buscarEstoquePorNome(String nomeMaterial) {
         return estoqueDAO.buscarEstoquePorNome(nomeMaterial);
     }

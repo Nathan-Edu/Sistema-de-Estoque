@@ -2,13 +2,17 @@ package com.example.stockmaster.Controles.Materiais;
 
 import Aplicacoes.Modelos.Material;
 import Aplicacoes.Servicos.MaterialServ;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -24,10 +28,16 @@ public class ModificarMaterialController {
     private TextField descricaoCurtaField;
 
     @FXML
-    private TextField descricaoLongaField;
+    private TextArea descricaoLongaField;
 
     @FXML
     private TextField unidadeMedidaField;
+
+    @FXML
+    private ComboBox<String> origemMaterialComboBox;
+
+    @FXML
+    private ComboBox<String> statusComboBox;
 
     @FXML
     private Button salvarButton;
@@ -36,7 +46,16 @@ public class ModificarMaterialController {
     private Button voltarButton;
 
     @FXML
-    private Label statusLabel;
+    private Button criarButton;
+
+    @FXML
+    private Button listaButton;
+
+    @FXML
+    private Button exibirButton;
+
+    @FXML
+    private Label resultadoLabel;
 
     private MaterialServ materialServ;
 
@@ -45,20 +64,36 @@ public class ModificarMaterialController {
     }
 
     @FXML
-    private void handleSalvarButtonAction() {
+    public void initialize() {
+        ObservableList<String> origemOptions = FXCollections.observableArrayList("Produzido Internamente", "Comprado Externamente");
+        origemMaterialComboBox.setItems(origemOptions);
+
+        ObservableList<String> statusOptions = FXCollections.observableArrayList("Disponível", "Indisponível", "Em Produção");
+        statusComboBox.setItems(statusOptions);
+
+        resultadoLabel.setVisible(false); // Tornar o resultadoLabel invisível por padrão
+    }
+
+    @FXML
+    private void handleSalvarButtonAction(ActionEvent event) {
         try {
             int id = Integer.parseInt(codigoMaterialField.getText());
             String descricaoCurta = descricaoCurtaField.getText();
             String descricaoLonga = descricaoLongaField.getText();
-            BigDecimal quantidade = BigDecimal.ZERO; // Definindo uma quantidade padrão, se necessário
+            BigDecimal quantidade = BigDecimal.ZERO;
             String unidadeMedida = unidadeMedidaField.getText();
-            String deposito = "N/A"; // Definindo um valor padrão para depósito
+            String deposito = "N/A";
+            String origemMaterial = origemMaterialComboBox.getValue();
+            String status = statusComboBox.getValue();
 
-            Material material = new Material(id, descricaoCurta, descricaoLonga, quantidade, unidadeMedida, deposito);
+            Material material = new Material(id, descricaoCurta, descricaoLonga, quantidade, unidadeMedida, deposito, origemMaterial, status);
             materialServ.atualizarMaterial(material);
-            statusLabel.setText("Material atualizado com sucesso!");
+
+            resultadoLabel.setText("Material atualizado com sucesso!");
+            resultadoLabel.setVisible(true);
         } catch (NumberFormatException e) {
-            statusLabel.setText("Erro: código inválido.");
+            resultadoLabel.setText("Erro: código inválido.");
+            resultadoLabel.setVisible(true);
         }
     }
 
@@ -67,7 +102,8 @@ public class ModificarMaterialController {
         descricaoCurtaField.setText(material.getDescricao_curta());
         descricaoLongaField.setText(material.getDescricao_longa());
         unidadeMedidaField.setText(material.getUnidade_medida());
-        // Não é necessário configurar o campo depósito
+        origemMaterialComboBox.setValue(material.getOrigem_material());
+        statusComboBox.setValue(material.getStatus());
     }
 
     @FXML
@@ -76,13 +112,33 @@ public class ModificarMaterialController {
     }
 
     @FXML
+    private void handleListaButtonAction(ActionEvent event) {
+        carregarTela("/com/example/stockmaster/Materiais/ListaMaterial.fxml", "Lista Material");
+    }
+
+    @FXML
     private void handleExibirButtonAction(ActionEvent event) {
-        Material material = materialServ.buscarProdutoPorId(Integer.parseInt(codigoMaterialField.getText()));
-        if (material != null) {
-            setMaterial(material);
-        } else {
-            statusLabel.setText("Material não encontrado.");
+        try {
+            String input = codigoMaterialField.getText();
+            Material material = null;
+
+            try {
+                int id = Integer.parseInt(input);
+                material = materialServ.buscarProdutoPorId(id);
+            } catch (NumberFormatException e) {
+                material = materialServ.buscarProdutoPorNome(input);
+            }
+
+            if (material != null) {
+                setMaterial(material);
+                resultadoLabel.setText("Material carregado com sucesso!");
+            } else {
+                resultadoLabel.setText("Material não encontrado.");
+            }
+        } catch (NumberFormatException e) {
+            resultadoLabel.setText("Erro: entrada inválida.");
         }
+        resultadoLabel.setVisible(true);
     }
 
     @FXML
@@ -101,6 +157,8 @@ public class ModificarMaterialController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+            resultadoLabel.setText("Erro ao carregar a tela: " + titulo);
+            resultadoLabel.setVisible(true);
         }
     }
 }

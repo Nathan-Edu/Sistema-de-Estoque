@@ -14,10 +14,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.sql.Date;
-import java.util.List;
+import java.time.LocalDate;
 
 public class CriarEstoqueController {
 
@@ -31,7 +29,10 @@ public class CriarEstoqueController {
     private TextField unidadeMedidaField;
 
     @FXML
-    private TextField dataField;
+    private DatePicker dataPicker;
+
+    @FXML
+    private TextField estoqueField;
 
     @FXML
     private Button salvarButton;
@@ -53,9 +54,10 @@ public class CriarEstoqueController {
         String materialStr = codigoMaterialField.getText();
         String quantidadeStr = quantidadeField.getText();
         String unidadeMedida = unidadeMedidaField.getText();
-        String dataStr = dataField.getText();
+        LocalDate data = dataPicker.getValue();
+        String idEstoqueStr = estoqueField.getText();
 
-        if (materialStr.isEmpty() || quantidadeStr.isEmpty() || unidadeMedida.isEmpty() || dataStr.isEmpty()) {
+        if (materialStr.isEmpty() || quantidadeStr.isEmpty() || unidadeMedida.isEmpty() || data == null || idEstoqueStr.isEmpty()) {
             statusLabel.setText("Por favor, preencha todos os campos.");
             return;
         }
@@ -74,19 +76,15 @@ public class CriarEstoqueController {
                 return;
             }
 
+            int idEstoque = Integer.parseInt(idEstoqueStr);
             BigDecimal quantidade = new BigDecimal(quantidadeStr);
+            Date dataEntrada = Date.valueOf(data);
 
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            java.util.Date parsedDate = sdf.parse(dataStr);
-            Date dataEntrada = new Date(parsedDate.getTime());
-
-            Estoque novoEstoque = new Estoque(0, material.getId_material(), quantidade, unidadeMedida, dataEntrada);
+            Estoque novoEstoque = new Estoque(idEstoque, material.getId_material(), quantidade, unidadeMedida, dataEntrada);
             estoqueServ.adicionaEstoque(novoEstoque);
             statusLabel.setText("Estoque adicionado com sucesso!");
         } catch (NumberFormatException e) {
-            statusLabel.setText("Quantidade deve ser um número válido.");
-        } catch (ParseException e) {
-            statusLabel.setText("Data deve estar no formato dd/MM/yyyy.");
+            statusLabel.setText("Quantidade e ID do Estoque devem ser números válidos.");
         }
     }
 

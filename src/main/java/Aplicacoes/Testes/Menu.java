@@ -71,9 +71,6 @@ public class Menu {
 
             switch (opcaoMateriais) {
                 case 1:
-                    System.out.print("ID do Material: ");
-                    int idMaterial = scanner.nextInt();
-                    scanner.nextLine();
                     System.out.print("Descrição Curta: ");
                     String descricaoCurta = scanner.nextLine();
                     System.out.print("Descrição Longa: ");
@@ -85,11 +82,14 @@ public class Menu {
                     String unidadeMedida = scanner.nextLine();
                     System.out.print("Depósito: ");
                     String deposito = scanner.nextLine();
-
+                    System.out.print("Origem do Material (Produzido Internamente / Comprado Externamente): ");
+                    String origemMaterial = scanner.nextLine();
+                    System.out.print("Status: ");
+                    String status = scanner.nextLine();
 
                     BigDecimal quantidadeBigDecimal = BigDecimal.valueOf(quantidade);
 
-                    Material novoMaterial = new Material(idMaterial, descricaoCurta, descricaoLonga, quantidadeBigDecimal, unidadeMedida, deposito);
+                    Material novoMaterial = new Material(descricaoCurta, descricaoLonga, quantidadeBigDecimal, unidadeMedida, deposito, origemMaterial, status);
                     materialDAO.adicionaMaterial(novoMaterial);
                     System.out.println("Material cadastrado com sucesso!");
                     break;
@@ -111,14 +111,20 @@ public class Menu {
                         String novaUnidadeMedida = scanner.nextLine();
                         System.out.print("Novo Depósito: ");
                         String novoDeposito = scanner.nextLine();
+                        System.out.print("Nova Origem do Material (Produzido Internamente / Comprado Externamente): ");
+                        String novaOrigemMaterial = scanner.nextLine();
+                        System.out.print("Novo Status: ");
+                        String novoStatus = scanner.nextLine();
 
                         BigDecimal novaQuantidadeBigDecimal = BigDecimal.valueOf(novaQuantidade);
 
                         materialMod.setDescricao_curta(novaDescricaoCurta);
-                        materialMod.setDescricao_Longa(novaDescricaoLonga);
+                        materialMod.setDescricao_longa(novaDescricaoLonga);
                         materialMod.setQuantidade(novaQuantidadeBigDecimal);
-                        materialMod.setUnidade_Medida(novaUnidadeMedida);
+                        materialMod.setUnidade_medida(novaUnidadeMedida);
                         materialMod.setDeposito(novoDeposito);
+                        materialMod.setOrigem_material(novaOrigemMaterial);
+                        materialMod.setStatus(novoStatus);
 
                         materialDAO.atualizarMaterial(materialMod);
                         System.out.println("Material modificado com sucesso!");
@@ -129,8 +135,8 @@ public class Menu {
 
                 case 3:
                     List<Material> materiais = materialDAO.listarMateriais();
-                    for (Material material : materiais) {
-                        System.out.println(material);
+                    for (Material mat : materiais) {
+                        System.out.println(mat);
                     }
                     break;
 
@@ -142,7 +148,6 @@ public class Menu {
             }
         } while (opcaoMateriais != 4);
     }
-
     private static void gerenciarUsuarios(UsuarioDAO usuarioDAO, Scanner scanner) {
         int opcaoUsuarios;
         do {
@@ -307,7 +312,7 @@ public class Menu {
             switch (opcaoEstoques) {
                 case 1:
                     System.out.print("ID do Estoque: ");
-                    int idEstoque = scanner.nextInt();
+                    int idEstoque = Integer.parseInt(scanner.nextLine());
                     scanner.nextLine();
                     System.out.print("ID do Material: ");
                     int idMaterialEstoque = scanner.nextInt();
@@ -329,9 +334,9 @@ public class Menu {
 
                 case 2:
                     System.out.print("ID do Estoque a modificar: ");
-                    int idModEstoque = scanner.nextInt();
+                    String idModEstoque = String.valueOf(scanner.nextInt());
                     scanner.nextLine();
-                    Estoque estoqueMod = estoqueDAO.buscarEstoquePorId(idModEstoque);
+                    Estoque estoqueMod = estoqueDAO.buscarEstoquePorId(Integer.parseInt(idModEstoque));
                     if (estoqueMod != null) {
                         System.out.print("Nova Quantidade: ");
                         int novaQuantidadeEstoque = scanner.nextInt();
@@ -363,9 +368,9 @@ public class Menu {
 
                 case 4:
                     System.out.print("ID do Estoque a deletar: ");
-                    int idDelEstoque = scanner.nextInt();
+                    String idDelEstoque = scanner.nextLine();
                     scanner.nextLine();
-                    estoqueDAO.deletarEstoque(idDelEstoque);
+                    estoqueDAO.deletarEstoque(Integer.parseInt(idDelEstoque));
                     System.out.println("Estoque deletado com sucesso!");
                     break;
 

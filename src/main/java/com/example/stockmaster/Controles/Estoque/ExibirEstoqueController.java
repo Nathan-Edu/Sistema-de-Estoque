@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
 public class ExibirEstoqueController {
 
     @FXML
-    private TextField codigoLoteField;
+    private TextField codigoEstoqueField;
 
     @FXML
     private TextField codigoMaterialField;
@@ -48,18 +48,28 @@ public class ExibirEstoqueController {
     private Button criarButton;
 
     @FXML
-    private Label resultadoLabel;
+    private Label statusLabel;
 
     private EstoqueServ estoqueServ = new EstoqueServ();
     private MaterialServ materialServ = new MaterialServ();
 
+    private Estoque estoqueAtual;
+
     @FXML
     private void handleExibirButtonAction(ActionEvent event) {
         try {
-            int codigoLote = Integer.parseInt(codigoLoteField.getText());
-            Estoque estoque = estoqueServ.buscarEstoquePorId(codigoLote);
+            String codigoEstoqueStr = codigoEstoqueField.getText().trim();
+
+            if (codigoEstoqueStr.isEmpty()) {
+                statusLabel.setText("Informe um código de estoque válido!");
+                return;
+            }
+
+            int codigoEstoque = Integer.parseInt(codigoEstoqueStr);
+            Estoque estoque = estoqueServ.buscarEstoquePorId(codigoEstoque);
 
             if (estoque != null) {
+                estoqueAtual = estoque;
                 Material material = materialServ.buscarProdutoPorId(estoque.getCodMaterial());
                 if (material != null) {
                     codigoMaterialField.setText(material.getDescricaoCurta());
@@ -70,23 +80,36 @@ public class ExibirEstoqueController {
                 unidadeMedidaField.setText(estoque.getUnidadeMedida());
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 dataField.setText(sdf.format(estoque.getDataEntrada()));
-                resultadoLabel.setText("Dados exibidos.");
+                statusLabel.setText("Dados exibidos.");
             } else {
-                resultadoLabel.setText("Estoque não encontrado.");
+                statusLabel.setText("Estoque não encontrado.");
             }
         } catch (NumberFormatException e) {
-            resultadoLabel.setText("Código do Estoque deve ser um número válido.");
+            statusLabel.setText("Erro: Código do Estoque deve ser numérico.");
+        } catch (Exception e) {
+            statusLabel.setText("Erro ao exibir estoque: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
     @FXML
     private void handleExcluirButtonAction(ActionEvent event) {
         try {
-            int codigoLote = Integer.parseInt(codigoLoteField.getText());
-            estoqueServ.deletarEstoque(codigoLote);
-            resultadoLabel.setText("Estoque excluído com sucesso!");
+            String codigoEstoqueStr = codigoEstoqueField.getText().trim();
+
+            if (codigoEstoqueStr.isEmpty()) {
+                statusLabel.setText("Informe um código de estoque válido!");
+                return;
+            }
+
+            int codigoEstoque = Integer.parseInt(codigoEstoqueStr);
+            estoqueServ.deletarEstoque(codigoEstoque);
+            statusLabel.setText("Estoque excluído com sucesso!");
         } catch (NumberFormatException e) {
-            resultadoLabel.setText("Código do Estoque deve ser um número válido.");
+            statusLabel.setText("Erro: Código do Estoque deve ser numérico.");
+        } catch (Exception e) {
+            statusLabel.setText("Erro ao excluir estoque: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -103,7 +126,21 @@ public class ExibirEstoqueController {
 
     @FXML
     private void handleModificarButtonAction(ActionEvent event) {
-        carregarTela("/com/example/stockmaster/Estoque/ModificarEstoque.fxml", "Modificar Estoque");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/stockmaster/Estoque/ModificarEstoque.fxml"));
+            Parent root = loader.load();
+
+            ModificarEstoqueController modificarController = loader.getController();
+            modificarController.setEstoque(estoqueAtual);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Modificar Estoque");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            statusLabel.setText("Erro ao abrir a tela de modificação: " + e.getMessage());
+        }
     }
 
     private void carregarTela(String caminhoFXML, String titulo) {
@@ -116,6 +153,9 @@ public class ExibirEstoqueController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+            statusLabel.setText("Erro ao abrir a tela: " + e.getMessage());
         }
     }
+
+
 }

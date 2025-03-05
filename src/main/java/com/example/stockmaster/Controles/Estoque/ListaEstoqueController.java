@@ -40,6 +40,9 @@ public class ListaEstoqueController {
     private TableColumn<Estoque, String> materialColumn;
 
     @FXML
+    private TableColumn<Estoque, String> unidadeMedidaColumn;
+
+    @FXML
     private TableColumn<Estoque, Integer> quantidadeColumn;
 
     @FXML
@@ -58,10 +61,10 @@ public class ListaEstoqueController {
     private Button modificarButton;
 
     @FXML
-    private Label statusLabel;
+    private Button exportarButton;
 
     @FXML
-    private Button exportarButton;
+    private Label statusLabel;
 
     private EstoqueServ estoqueServ = new EstoqueServ();
     private MaterialServ materialServ = new MaterialServ();
@@ -79,6 +82,7 @@ public class ListaEstoqueController {
                 return new javafx.beans.property.SimpleStringProperty(String.valueOf(codMaterial));
             }
         });
+        unidadeMedidaColumn.setCellValueFactory(new PropertyValueFactory<>("unidadeMedida"));
         quantidadeColumn.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
         dataEntradaColumn.setCellValueFactory(new PropertyValueFactory<>("dataEntrada"));
         dataEntradaColumn.setCellFactory(new Callback<TableColumn<Estoque, Date>, TableCell<Estoque, Date>>() {
@@ -149,18 +153,20 @@ public class ListaEstoqueController {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
         File file = fileChooser.showSaveDialog(tabelaEstoque.getScene().getWindow());
         if (file != null) {
-            String[] colunas = {"ID", "Material", "Quantidade", "Data de Entrada"};
+            String[] colunas = {"ID", "Material", "Unidade de Medida", "Quantidade", "Data de Entrada"};
             csvExporter.exportarParaCSV(
                     tabelaEstoque.getItems(),
                     file.getPath(),
                     colunas,
                     item -> {
                         String materialDescricao = materialServ.buscarProdutoPorId(item.getCodMaterial()).getDescricaoCurta();
+                        String unidadeMedida = item.getUnidadeMedida();
                         String quantidade = String.format("%.2f", item.getQuantidade().doubleValue());
                         String dataEntrada = new SimpleDateFormat("dd/MM/yyyy").format(item.getDataEntrada());
-                        return String.format("%d,%s,%s,%s",
+                        return String.format("%d,%s,%s,%s,%s",
                                 item.getIdEstoque(),
                                 materialDescricao,
+                                unidadeMedida,
                                 quantidade,
                                 dataEntrada);
                     }
@@ -168,7 +174,6 @@ public class ListaEstoqueController {
             statusLabel.setText("Estoque exportado com sucesso.");
         }
     }
-
 
     private void carregarTela(String caminhoFXML, String titulo) {
         try {

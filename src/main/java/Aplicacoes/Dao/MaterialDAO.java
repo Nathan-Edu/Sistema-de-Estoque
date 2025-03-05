@@ -26,7 +26,7 @@ public class MaterialDAO {
     }
 
     public void adicionaMaterial(Material material) {
-        String sql = "INSERT INTO materiais (descricao_curta, descricao_longa, quantidade, unidade_medida, deposito) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO materiais (descricao_curta, descricao_longa, quantidade, unidade_medida, deposito, origem_material, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, material.getDescricao_curta());
@@ -34,6 +34,8 @@ public class MaterialDAO {
             stmt.setBigDecimal(3, material.getQuantidade());
             stmt.setString(4, material.getUnidade_medida());
             stmt.setString(5, material.getDeposito());
+            stmt.setString(6, material.getOrigem_material());
+            stmt.setString(7, material.getStatus());
             stmt.executeUpdate();
 
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
@@ -60,7 +62,9 @@ public class MaterialDAO {
                             rs.getString("descricao_longa"),
                             rs.getBigDecimal("quantidade"),
                             rs.getString("unidade_medida"),
-                            rs.getString("deposito")
+                            rs.getString("deposito"),
+                            rs.getString("origem_material"),
+                            rs.getString("status")
                     );
                 }
             }
@@ -83,7 +87,9 @@ public class MaterialDAO {
                         rs.getString("descricao_longa"),
                         rs.getBigDecimal("quantidade"),
                         rs.getString("unidade_medida"),
-                        rs.getString("deposito")
+                        rs.getString("deposito"),
+                        rs.getString("origem_material"),
+                        rs.getString("status")
                 );
                 materiais.add(material);
             }
@@ -94,7 +100,7 @@ public class MaterialDAO {
     }
 
     public void atualizarMaterial(Material material) {
-        String sql = "UPDATE materiais SET descricao_curta = ?, descricao_longa = ?, quantidade = ?, unidade_medida = ?, deposito = ? WHERE id_material = ?";
+        String sql = "UPDATE materiais SET descricao_curta = ?, descricao_longa = ?, quantidade = ?, unidade_medida = ?, deposito = ?, origem_material = ?, status = ? WHERE id_material = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, material.getDescricao_curta());
@@ -102,7 +108,9 @@ public class MaterialDAO {
             stmt.setBigDecimal(3, material.getQuantidade());
             stmt.setString(4, material.getUnidade_medida());
             stmt.setString(5, material.getDeposito());
-            stmt.setInt(6, material.getId_material());
+            stmt.setString(6, material.getOrigem_material());
+            stmt.setString(7, material.getStatus());
+            stmt.setInt(8, material.getId_material());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -155,7 +163,9 @@ public class MaterialDAO {
                             rs.getString("descricao_longa"),
                             rs.getBigDecimal("quantidade"),
                             rs.getString("unidade_medida"),
-                            rs.getString("deposito")
+                            rs.getString("deposito"),
+                            rs.getString("origem_material"),
+                            rs.getString("status")
                     );
                 }
             }

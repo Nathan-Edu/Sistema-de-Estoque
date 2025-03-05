@@ -18,9 +18,6 @@ public class Estoque {
         this.dataEntrada = dataEntrada;
     }
 
-    public Estoque(int idEstoque, int codMaterial, int quantidade, java.sql.Date dataEntrada) {
-    }
-
     public int getIdEstoque() {
         return idEstoque;
     }

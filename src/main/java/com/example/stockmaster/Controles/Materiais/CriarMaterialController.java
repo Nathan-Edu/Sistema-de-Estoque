@@ -1,16 +1,19 @@
 package com.example.stockmaster.Controles.Materiais;
 
-import Aplicacoes.Servicos.MaterialServ;
 import Aplicacoes.Modelos.Material;
+import Aplicacoes.Servicos.MaterialServ;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
-import javafx.event.ActionEvent;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -25,10 +28,16 @@ public class CriarMaterialController {
     private TextField descricaoCurtaField;
 
     @FXML
+    private TextArea descricaoLongaField;
+
+    @FXML
     private TextField unidadeMedidaField;
 
     @FXML
-    private TextArea descricaoLongaField;
+    private ComboBox<String> origemMaterialComboBox;
+
+    @FXML
+    private ComboBox<String> statusComboBox;
 
     @FXML
     private Button salvarButton;
@@ -42,30 +51,45 @@ public class CriarMaterialController {
     @FXML
     private Label statusLabel;
 
-    private MaterialServ cadastroProdutoServ;
+    @FXML
+    private Label resultadoLabel;
+
+    private MaterialServ materialServ;
 
     public CriarMaterialController() {
-        this.cadastroProdutoServ = new MaterialServ();
+        this.materialServ = new MaterialServ();
     }
 
     @FXML
     public void initialize() {
-        codigoMaterialField.setText("");
-        codigoMaterialField.setEditable(false);
+        ObservableList<String> origemOptions = FXCollections.observableArrayList("Produzido Internamente", "Comprado Externamente");
+        origemMaterialComboBox.setItems(origemOptions);
+
+        ObservableList<String> statusOptions = FXCollections.observableArrayList("Disponível", "Indisponível", "Em Produção");
+        statusComboBox.setItems(statusOptions);
+
+        resultadoLabel.setVisible(false); // Tornar o resultadoLabel invisível por padrão
     }
 
     @FXML
     private void handleSalvarButtonAction(ActionEvent event) {
-        String descricaoCurta = descricaoCurtaField.getText();
-        String unidadeMedida = unidadeMedidaField.getText();
-        String descricaoLonga = descricaoLongaField.getText();
-
         try {
-            Material material = new Material(0, descricaoCurta, descricaoLonga, BigDecimal.ZERO, unidadeMedida, "");
-            cadastroProdutoServ.cadastrarMaterial(material);
-            statusLabel.setText("Material cadastrado com sucesso!");
-        } catch (IllegalArgumentException e) {
-            statusLabel.setText("Erro: " + e.getMessage());
+            String descricaoCurta = descricaoCurtaField.getText();
+            String descricaoLonga = descricaoLongaField.getText();
+            BigDecimal quantidade = BigDecimal.ZERO;
+            String unidadeMedida = unidadeMedidaField.getText();
+            String deposito = "N/A";
+            String origemMaterial = origemMaterialComboBox.getValue();
+            String status = statusComboBox.getValue();
+
+            Material material = new Material(descricaoCurta, descricaoLonga, quantidade, unidadeMedida, deposito, origemMaterial, status);
+            materialServ.cadastrarMaterial(material);
+
+            resultadoLabel.setText("Material cadastrado com sucesso!");
+            resultadoLabel.setVisible(true);
+        } catch (NumberFormatException e) {
+            resultadoLabel.setText("Erro: código inválido.");
+            resultadoLabel.setVisible(true);
         }
     }
 
@@ -84,12 +108,14 @@ public class CriarMaterialController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(caminhoFXML));
             Parent root = loader.load();
-            Stage stage = (Stage) listaButton.getScene().getWindow();
+            Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle(titulo);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+            resultadoLabel.setText("Erro ao carregar a tela: " + titulo);
+            resultadoLabel.setVisible(true);
         }
     }
 }

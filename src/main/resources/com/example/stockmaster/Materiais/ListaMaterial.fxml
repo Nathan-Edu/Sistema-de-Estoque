@@ -3,15 +3,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="447.0" prefWidth="638.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.stockmaster.Controles.Materiais.ListaMaterialController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="551.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.stockmaster.Controles.Materiais.ListaMaterialController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="122.0" minWidth="10.0" prefWidth="24.200000000000003" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.0" minWidth="10.0" prefWidth="68.8" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.0" minWidth="10.0" prefWidth="80.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="353.8" minWidth="10.0" prefWidth="306.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="401.2" minWidth="10.0" prefWidth="81.39999999999998" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="59.799999999999955" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="0.0" prefWidth="21.600000000000023" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="401.2" minWidth="10.0" prefWidth="66.20000000000005" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="66.20000000000005" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="0.0" prefWidth="29.399999999999977" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints maxHeight="97.4" minHeight="10.0" prefHeight="58.0" vgrow="SOMETIMES" />
@@ -25,25 +25,26 @@
     </rowConstraints>
     <children>
         <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="18.0" prefWidth="70.0" scaleX="2.0" scaleY="2.0" scaleZ="2.0" text="StockMaster" textAlignment="CENTER" translateX="2.0" translateY="2.0" translateZ="2.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" />
-        <Pane prefHeight="58.0" prefWidth="155.0" style="-fx-background-color: lightblue;" GridPane.columnSpan="3" GridPane.rowIndex="0" />
         <Button fx:id="criarButton" mnemonicParsing="false" onAction="#handleCriarButtonAction" text="Adicionar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
         <Button fx:id="deletarButton" mnemonicParsing="false" onAction="#handleDeletarButtonAction" text="Excluir" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
-        <ScrollPane prefHeight="279.0" prefWidth="483.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="3" GridPane.rowSpan="3">
+        <ScrollPane prefHeight="279.0" prefWidth="483.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="3" GridPane.rowSpan="3">
             <content>
-                <TableView fx:id="tabelaMateriais" prefHeight="273.0" prefWidth="473.0">
+                <TableView fx:id="tabelaMateriais" prefHeight="304.0" prefWidth="656.0">
                     <columns>
-                        <TableColumn fx:id="codigoMaterialColumn" prefWidth="106.2" text="Código Material" />
-                        <TableColumn fx:id="descricaoCurtaColumn" prefWidth="139.4" text="Descrição Curta" />
-                        <TableColumn fx:id="unidadeMedidaColumn" prefWidth="71.2" text="Unidade" />
-                        <TableColumn fx:id="descricaoLongaColumn" prefWidth="145.0" text="Descrição Longa" />
+                        <TableColumn fx:id="codigoMaterialColumn" prefWidth="53.399997770786285" text="Material" />
+                        <TableColumn fx:id="descricaoCurtaColumn" prefWidth="129.40001678466797" text="Descrição Curta" />
+                        <TableColumn fx:id="unidadeMedidaColumn" prefWidth="47.39996337890625" text="Un" />
+                        <TableColumn fx:id="origemMaterialColumn" prefWidth="98.20001220703125" text="Origem" />
+                        <TableColumn fx:id="statusColumn" prefWidth="100.4000244140625" text="Status" />
+                        <TableColumn fx:id="descricaoLongaColumn" prefWidth="229.19998168945312" text="Descrição Longa" />
                     </columns>
                 </TableView>
             </content>
         </ScrollPane>
-        <Button fx:id="voltarButton" layoutX="621.0" layoutY="418.0" mnemonicParsing="false" onAction="#handleVoltarButtonAction" text="Voltar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+        <Button fx:id="voltarButton" layoutX="621.0" layoutY="418.0" mnemonicParsing="false" onAction="#handleVoltarButtonAction" text="&lt;-" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
         <Label text="Lista de Materiais" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
         <Button fx:id="modificarButton" mnemonicParsing="false" onAction="#handleModificarButtonAction" text="Modificar" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-        <Button fx:id="exportarButton" mnemonicParsing="false" onAction="#handleExportarButtonAction" text="Exportar" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-        <Label fx:id="statusLabel" text="Status" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+        <Button fx:id="exportarButton" mnemonicParsing="false" onAction="#handleExportarButtonAction" text="Exportar" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+        <Label fx:id="resultadoLabel" text="Resultado" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
     </children>
 </GridPane>

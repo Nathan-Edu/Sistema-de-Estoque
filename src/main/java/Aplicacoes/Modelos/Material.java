@@ -9,18 +9,31 @@ public class Material {
     private BigDecimal quantidade;
     private String unidade_medida;
     private String deposito;
+    private String origem_material;
     private String status;
 
-    public Material(int id_material, String descricao_curta, String descricao_longa, BigDecimal quantidade, String unidade_medida, String deposito) {
+    public Material(int id_material, String descricao_curta, String descricao_longa, BigDecimal quantidade, String unidade_medida, String deposito, String origem_material, String status) {
         this.id_material = id_material;
         this.descricao_curta = descricao_curta;
         this.descricao_longa = descricao_longa;
         this.quantidade = quantidade;
         this.unidade_medida = unidade_medida;
         this.deposito = deposito;
-        this.status = "";
+        this.origem_material = origem_material;
+        this.status = status;
     }
 
+    public Material(String descricao_curta, String descricao_longa, BigDecimal quantidade, String unidade_medida, String deposito, String origem_material, String status) {
+        this.descricao_curta = descricao_curta;
+        this.descricao_longa = descricao_longa;
+        this.quantidade = quantidade;
+        this.unidade_medida = unidade_medida;
+        this.deposito = deposito;
+        this.origem_material = origem_material;
+        this.status = status;
+    }
+
+    // Getters e Setters
     public int getId_material() {
         return id_material;
     }
@@ -69,6 +82,14 @@ public class Material {
         this.deposito = deposito;
     }
 
+    public String getOrigem_material() {
+        return origem_material;
+    }
+
+    public void setOrigem_material(String origem_material) {
+        this.origem_material = origem_material;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -79,20 +100,16 @@ public class Material {
 
     @Override
     public String toString() {
-        return String.format("ID: %d, Descrição Curta: %s, Descrição Longa: %s, Quantidade: %s, Unidade Medida: %s, Depósito: %s, Status: %s",
-                id_material, descricao_curta, descricao_longa, quantidade, unidade_medida, deposito, status);
-    }
-
-    public void setDescricao_Longa(String novaDescricaoLonga) {
-        this.descricao_longa = novaDescricaoLonga;
-    }
-
-    public void setUnidade_Medida(String novaUnidadeMedida) {
-        this.unidade_medida = novaUnidadeMedida;
+        return String.format("ID: %d, Descrição Curta: %s, Descrição Longa: %s, Quantidade: %s, Unidade Medida: %s, Depósito: %s, Origem: %s, Status: %s",
+                id_material, descricao_curta, descricao_longa, quantidade, unidade_medida, deposito, origem_material, status);
     }
 
     public int getId() {
         return id_material;
+    }
+
+    public String getDescricaoCurta() {
+        return descricao_curta;
     }
 
     public String getDescricao_Longa() {
@@ -101,9 +118,5 @@ public class Material {
 
     public String getUnidade_Medida() {
         return unidade_medida;
-    }
-
-    public String getDescricaoCurta() {
-        return descricao_curta;
     }
 }
